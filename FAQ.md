@@ -41,13 +41,13 @@ But even game’s mapper is supported some games are not working good without pa
 Known problem games:
 * Battletoads - crashed on second level. Patch available: http://www.romhacking.net/hacks/2528/
 * Robocop 3 - it should work but not working at all. MMC3 port is working fine. There are many weird code in this game. I created my own [patch](http://clusterrr.com/roms/nes-patches/RoboCop%203%20(U)%20%5b!%5d%20-%20NES%20Mini%20patch.ips).
-* Snow Bros. - When the CPU writes to the serial port on consecutive cycles, the MMC1 ignores all writes but the first. This happens when the 6502 executes read-modify-write (RMW) instructions, such as DEC and ROR, by writing back the old value and then writing the new value on the next cycle. It's very easy to fix. I created my own [http://clusterrr.com/roms/nes-patches/Snow%20Bros.%20(U)%20%5b!%5d%20-%20NES%20Mini%20patch.ips](patch).
-* Bill & Ted's Excellent Adventure - same as Snow Bros. [http://clusterrr.com/roms/nes-patches/Bill%20&%20Ted's%20Excellent%20Video%20Game%20Adventure%20(U)%20-%20NES%20Mini%20patch.ips](My patch) .
+* Snow Bros. - When the CPU writes to the serial port on consecutive cycles, the MMC1 ignores all writes but the first. This happens when the 6502 executes read-modify-write (RMW) instructions, such as DEC and ROR, by writing back the old value and then writing the new value on the next cycle. It's very easy to fix. I created my own [patch](http://clusterrr.com/roms/nes-patches/Snow%20Bros.%20(U)%20%5b!%5d%20-%20NES%20Mini%20patch.ips).
+* Bill & Ted's Excellent Adventure - same as Snow Bros. [My patch](http://clusterrr.com/roms/nes-patches/Bill%20&%20Ted's%20Excellent%20Video%20Game%20Adventure%20(U)%20-%20NES%20Mini%20patch.ips) .
 
 Feel free to ask me for patched if you found some game that should work (no mapper working) but it crashes at startup.
 
 
-**Q: Can I find list of games with mappers?**
+**Q: Where can I find list of games with mappers?**
 
 A: http://bootgod.dyndns.org:7777 and http://tuxnes.sourceforge.net/nesmapper.txt
 
@@ -143,6 +143,12 @@ A: Yes. And probably they are using pirated copies of their own games %)
 
 A: Don't panic. Just flash original kernel back. Everything should work again.
 Try to unpack application and do everything again. Make sure that all files in place and not corrupted.
+
+
+Q: Where I can find list of all command line arguments?
+
+A: Internal emulator of NES Mini has many command line arguments. Seems like some of them are not working but there is full listing of "--help" output:
+[https://github.com/ClusterM/hakchi2/wiki/Command-line-arguments](https://github.com/ClusterM/hakchi2/wiki/Command-line-arguments)
 
 
 **Q: How can I donate you?**
