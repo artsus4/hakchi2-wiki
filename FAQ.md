@@ -31,6 +31,7 @@ A: On this moment confirmed that emulator of NES Mini can run this mappers:
 * 7 (AxROM - ANROM/AMROM/ANROM/etc.) - simple mapper used by games like Battletoads.
 * 9 (MMC2) - used only by Punch Out!!
 * 10 (MMC4) - used by few japanese games.
+* 71 (Codemasters/Camerica) - since version 2.08 mapper #71 games are automatically patched to mapper #2.
 * Famicom Disk System images - japanese ROMs with .fds extension, like original Super Mario Bros. 2, Doki Doki Panic, japanese version of Metroid, etc.
 
 It is possible that emulator supports some other mappers too. You can add those ROMs but application will warn you and game likely will not work. If it WILL work please report me about this game. I’ll add this mapper to list of confirmed.
