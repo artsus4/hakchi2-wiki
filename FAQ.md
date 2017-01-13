@@ -145,7 +145,7 @@ A: Don't panic. Just flash original kernel back. Everything should work again.
 Try to unpack application and do everything again. Make sure that all files in place and not corrupted.
 
 
-Q: Where I can find list of all command line arguments?
+**Q: Where I can find list of all command line arguments?**
 
 A: Internal emulator of NES Mini has many command line arguments. Seems like some of them are not working but there is full listing of "--help" output:
 [https://github.com/ClusterM/hakchi2/wiki/Command-line-arguments](https://github.com/ClusterM/hakchi2/wiki/Command-line-arguments)
