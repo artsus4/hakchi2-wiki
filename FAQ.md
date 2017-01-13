@@ -151,6 +151,11 @@ A: Internal emulator of NES Mini has many command line arguments. Seems like som
 [https://github.com/ClusterM/hakchi2/wiki/Command-line-arguments](https://github.com/ClusterM/hakchi2/wiki/Command-line-arguments)
 
 
+**Q: Ho to disable this weird epilepsy protection?**
+
+A: I think that it's looking cool! But you can disable it. Just remove "--enable-armet" command line argument.
+
+
 **Q: How can I donate you?**
 
 A: My PayPal: clusterrr@clusterrr.com
