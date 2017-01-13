@@ -60,7 +60,7 @@ A: NES Mini can emulate only NTSC NES. There is command line argument to enable 
 
 **Q: How many games can be uploaded to NES Mini?**
 
-A: I don’t know. I have not tested it for maximum yet. Internal storage in NES Mini is really huge for ROMs (about ~300MB) but seems like built in shell of NES Mini can work only with ~90-100 games without glitches. Seems like it’s cannot allocate so much RAM. Investigation required.
+A: Internal storage in NES Mini is really huge for ROMs (about ~300MB) but seems like it’s cannot allocate so much RAM when loading cover and savestates images. It's not recommended to upload >90~100 games.
 
 
 **Q: Will it work with Famicom Mini too?**
