@@ -44,6 +44,7 @@ Known problem games:
 * Robocop 3 - it should work but not working at all. MMC3 port is working fine. There are many weird code in this game. I created my own [patch](http://clusterrr.com/roms/nes-patches/RoboCop%203%20(U)%20%5b!%5d%20-%20NES%20Mini%20patch.ips).
 * Snow Bros. - When the CPU writes to the serial port on consecutive cycles, the MMC1 ignores all writes but the first. This happens when the 6502 executes read-modify-write (RMW) instructions, such as DEC and ROR, by writing back the old value and then writing the new value on the next cycle. It's very easy to fix. I created my own [patch](http://clusterrr.com/roms/nes-patches/Snow%20Bros.%20(U)%20%5b!%5d%20-%20NES%20Mini%20patch.ips).
 * Bill & Ted's Excellent Adventure - same as Snow Bros. [My patch](http://clusterrr.com/roms/nes-patches/Bill%20&%20Ted's%20Excellent%20Video%20Game%20Adventure%20(U)%20-%20NES%20Mini%20patch.ips) .
+* Startropics II - actually it uses MMC6 mapper which is very similar to MMC3. The only difference is PRG protection. It's very easy to create patch. This my one: (http://clusterrr.com/roms/nes-patches/Startropics%20II%20-%20Zoda's%20Revenge%20(U)%20[!]_MMC3.ips)[patch].
 
 Feel free to ask me for patched if you found some game that should work (no mapper working) but it crashes at startup.
 
