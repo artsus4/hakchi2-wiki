@@ -28,7 +28,7 @@ A: On this moment confirmed that emulator of NES Mini can run this mappers:
 * 3 (CNROM) - mostly simple games but with much graphics, like Adventure Island, Friday The 13th, etc.
 * 4 (MMC3) - most popular mapper, used by huge bunch of great games.
 * 5 (MMC5) - very complex and most powerful mapper on NES, used only by Castlevania 3 and few japanese games. Is there at least one default game using it? I’m surprised that NES Mini can emulate it.
-* 7 (AxROM - ANROM/AMROM/ANROM/etc.) - simple mapper used by games like Battletoads.
+* 7 (AxROM - ANROM/AMROM/etc.) - simple mapper used by games like Battletoads.
 * 9 (MMC2) - used only by Punch Out!!
 * 10 (MMC4) - used by few japanese games.
 * 71 (Codemasters/Camerica) - since version 2.08 mapper #71 games are automatically patched to mapper #2.
