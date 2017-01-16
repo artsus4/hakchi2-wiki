@@ -125,7 +125,7 @@ Or just send me list of fixes.
 A: Just flash original kernel using command in the menu. But it will not delete sandbox folder. I'll made uninstall feature soon if you want.
 
 
-**Q: I want to upload games to my brothers/systers/mothers/fathers NES Mini on the same computer as the one I used to flash my NES. How to do it?**
+**Q: I want to upload games to my brothers/sisters/mothers/fathers NES Mini on the same computer as the one I used to flash my NES. How to do it?**
 
 A: hakchi2 is a portable application. Most safe way is just extract the hakchi2 to a second separate folder, and run hakchi2 from there. Doing so should allow to backup kernel, and add games to his liking/flash accordingly. You don't need to install driver.
 99% safe way: just flash custrom kernel and sync games in same application. This is shouldn't break anything but I can't 100% guarantee it.
