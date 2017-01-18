@@ -32,6 +32,7 @@ A: On this moment confirmed that emulator of NES Mini can run this mappers:
 * 9 (MMC2) - used only by Punch Out!!
 * 10 (MMC4) - used by few japanese games.
 * 71 (Codemasters/Camerica) - since version 2.08 mapper #71 games are automatically patched to mapper #2.
+* 87 - some Japanese games.
 * Famicom Disk System images - japanese ROMs with .fds extension, like original Super Mario Bros. 2, Doki Doki Panic, japanese version of Metroid, etc.
 
 It is possible that emulator supports some other mappers too. You can add those ROMs but application will warn you and game likely will not work. If it WILL work please report me about this game. I’ll add this mapper to list of confirmed.
@@ -46,7 +47,7 @@ Known problem games:
 * Bill & Ted's Excellent Adventure - same as Snow Bros. [My patch](http://clusterrr.com/roms/nes-patches/Bill%20&%20Ted's%20Excellent%20Video%20Game%20Adventure%20(U)%20-%20NES%20Mini%20patch.ips) .
 * Startropics II - actually it uses MMC6 mapper which is very similar to MMC3. The only difference is PRG protection. It's very easy to create patch. This my one: (http://clusterrr.com/roms/nes-patches/Startropics%20II%20-%20Zoda's%20Revenge%20(U)%20[!]_MMC3.ips)[patch].
 
-Feel free to ask me for patched if you found some game that should work (no mapper working) but it crashes at startup.
+Those games will be automatically patched since version 2.09.
 
 
 **Q: Where can I find list of games with mappers?**
@@ -66,7 +67,7 @@ A: Internal storage in NES Mini is really huge for ROMs (about ~300MB) but seems
 
 **Q: Will it work with Famicom Mini too?**
 
-A: Yes, It’s confirmed.
+A: Yes, It’s confirmed. But you can't use extended font and hide selected original games. Maybe somebody will create Japanese font?
 
 
 **Q: I can’t install driver!**
@@ -100,17 +101,13 @@ A: Nes Mini doesn’t contain some characters in their font. But I created my ow
 
 **Q: Can you modify emulator so the combination of buttons on gamepad will trigger reset?**
 
-A: It is possible in theory but need to disassemble binary of emulator. I have not so much skill.
+A: I̶t̶ ̶i̶s̶ ̶p̶o̶s̶s̶i̶b̶l̶e̶ ̶i̶n̶ ̶t̶h̶e̶o̶r̶y̶ ̶b̶u̶t̶ ̶n̶e̶e̶d̶ ̶t̶o̶ ̶d̶i̶s̶a̶s̶s̶e̶m̶b̶l̶e̶ ̶b̶i̶n̶a̶r̶y̶ ̶o̶f̶ ̶e̶m̶u̶l̶a̶t̶o̶r̶.̶ ̶I̶ ̶h̶a̶v̶e̶ ̶n̶o̶t̶ ̶s̶o̶ ̶m̶u̶c̶h̶ ̶s̶k̶i̶l̶l̶.̶
+I made it. Just enable this hack in menu and sync.
 
 
 **Q: Can I use savestates on added games?**
 
 A: Yes, you can. Battery backed games can use their internal saves too. Note that saves are stored on writable partition along with other savestates. When you delete a game, all savestates remains in the memory. You can delete them at once using factory reset. But they take only few kilobytes.
-
-
-**Q: Why it is distributed in the SFX archive (as .exe)?**
-
-A: Some versions of WinRAR can corrupt file attributes which are required by the “mkbootfs” util.
 
 
 **Q: Your english is awful! Can we do something about it?**
@@ -122,7 +119,7 @@ Or just send me list of fixes.
 
 **Q: How to uninstall it?**
 
-A: Just flash original kernel using command in the menu. But it will not delete sandbox folder. I'll made uninstall feature soon if you want.
+A: There is uninstall feature since version 2.08.
 
 
 **Q: I want to upload games to my brothers/sisters/mothers/fathers NES Mini on the same computer as the one I used to flash my NES. How to do it?**
@@ -155,7 +152,7 @@ A: Internal emulator of NES Mini has many command line arguments. Seems like som
 
 **Q: How to disable this weird epilepsy protection?**
 
-A: I think that it's looking cool! But you can disable it. Just remove "--enable-armet" command line argument.
+A: I think that it's looking cool! But you can disable it. Just remove "--enable-armet" command line argument. Or you can disable it via menu since version 2.09.
 
 
 **Q: How can I donate you?**
