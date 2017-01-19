@@ -41,3 +41,28 @@
 * Fix for Google search (thanks to Bin4ry!). This feature should work for all now.
 * Added Drag&Drop support. You can just drag&drop .nes file to list of games.
 * Help menu with links to FAQ and GitHub.
+
+2.09:
+- 'Can't repack ramdisk' error on some systems should be gone now.
+- Device detection bug fixed (thanks to David Winter!)
+- Automatic file attributes fix (e.g. "WinRAR" bug fixed).
+- Game selection presets. Now you can create presets for favorite games, party games, etc. It's useful since NES Mini don't like huge amount of games at once.
+- Search by first letters of game, just press Ctrl+F.
+- Much better PNG compression for covers, x4 more disk space.
+- NES carts database with release dates, publishers, etc. Just add game and all fields will be filled automatically if it exists in database.
+- Automatic IPS patches. Now you don't need other application to patch problem games. Patch files stored in "patch" folder. Problem game will be detected automatically by CRC32 checksum. Release already contains patches for "Battletoads", "Robocop 3", "Snow Bros.", "Bill & Ted's Excellent Video Game Adventure" and "Startropics II". You can add and your own patches too.
+- Game Genie support. Just enter your codes (comma/spaces/semicolon separated) in special field and sync. Cheats will be activated automatically.
+- Mapper #87 added to list of confirmed mappers.
+- Epilepsy protection settings - you can disable epilepsy protection for original 30 games or for all games at once.
+- Clovercon hack! Now you can exit to menu using "Down+Select" combination. All you need now is controller cable extension...
+- Some interface improvements - you can delete games using del key, etc.
+- Many minor bugfixes.
+
+2.10:
+* Press Shift+F5 to update all your ROMs library info using database.
+* Extended font working on Famicom Mini again.
+* Now you can select button combination for reset.
+* Some FDS improvements: correct cover size, automatic header fix, "--fds-auto-disk-side-switch-on-keypress" argument by default.
+* 8bit PNG compression is optional now since image quality is not so good.
+* Now you can remove thumbnails at the bottom of screen (via settings menu).
+* Bugfixes.
