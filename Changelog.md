@@ -65,4 +65,5 @@
 * Some FDS improvements: correct cover size, automatic header fix, "--fds-auto-disk-side-switch-on-keypress" argument by default.
 * 8bit PNG compression is optional now since image quality is not so good.
 * Now you can remove thumbnails at the bottom of screen (via settings menu).
+* Japanese font by xsnake.
 * Bugfixes.
