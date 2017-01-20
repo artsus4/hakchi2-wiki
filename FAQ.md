@@ -39,6 +39,8 @@ It is possible that emulator supports some other mappers too. You can add those 
 
 Also if you will patch unsupported game with mapper hack/patch/conversion it should work. There are many MMC3 patches over the Internet. Also it's easy to port games from Codemasters/Camerica to UNROM.
 
+**But there is no way to make support for unsupported mappers. Please stop asking me about it.**
+
 But even game’s mapper is supported some games are not working good without patches. Emulator in NES Mini tested only on default 30 games and actually sucks.
 Known problem games:
 * Battletoads - crashed on second level. Patch available: http://www.romhacking.net/hacks/2528/
