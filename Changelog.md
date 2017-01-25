@@ -67,3 +67,20 @@
 * Now you can remove thumbnails at the bottom of screen (via settings menu).
 * Japanese font by xsnake.
 * Bugfixes.
+
+2.11:
+* Folders/pages support! No more games limit. hakchi2 will automatically create folders and sort games alphabetically. Tested with 600+ ROMs. Everything working fine including savestates. You can select maximum games per page/folder but it's recommended to limit it to 30-35.
+* Multistep uploading. NES Mini can't handle huge kernel with hundreds of ROMs. So hakchi2 will split it up and upload in sequence. Just follow onscreen instructions.
+* Mass cover downloading. You can download covers for all games at once using first image on Google. You can find this feature in "File" menu.
+* IPS patcher can enlarge ROMs now ("index out of bounds" bug fixed).
+* New patches for problem games.
+* New confirmed mapper - 86. Also games with mappers 88, 95 and 206 will be patched automatically.
+* Global command line arguments. You can add some argument(s) for all games at once, including original ones. For example: add "*--ppu-palette=2*" to make all games black and white.
+* Support for ZIP, 7z and RAR archives. You don't need unpack every ROM now.
+* Support for some bad ROMs with invalid size.
+* Full Famicom Mini support: Japanese font and customizable original games list (thanks to xsnake!)
+* Autofire! Enable it via menu, hold Select+A/B for a second to enable autofire on A/B. Also X/Y buttons on classic controller will act as autofire A/B.
+* Start button simulation for second controller. Hold Up+A+B to press Start. It's workaround for some USA games on Famicom Mini. Don't forget to enable it via menu.
+* Option to disable menu music.
+* Minor design fixes.
+* Other minor improvements.
