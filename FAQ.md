@@ -68,7 +68,7 @@ A: NES Mini can emulate only NTSC NES. There is command line argument to enable 
 
 A: Internal storage in NES Mini is really huge for ROMs (about ~300MB) but shell designed to show 30 games and there are some issues with other number of games:
 * Thumbnail bar at the bottom of screen can show only ~45 covers. Other covers will be drawn beyond bounds of the screen.
-* Shell can show up to ~90 games but it can't allocate so much RAM to show game covers and save-state screenshots. So more games on screen means less save states.
+* Shell can show up to ~90 games but it can't allocate so much RAM to show game covers and save-state screenshots. So more games on screen means less save-states.
 * Too few games cause problems, too. There are should be at least 12 games in menu to show them without glitches.
 Version 2.11 introduces folder feature to avoid those problems.
 
@@ -78,7 +78,7 @@ A: There is no way (yet?) to customize folders manually since it's too easy to b
 * Pages. Every page contains games and shortcuts to other pages. This style used when there are not so much pages/folders.
 * Tree. It looks more like folders and contains root directory with sub-directories. This style used when there are at least 12 pages with games because shell need at least 12 items to show them without glitches.
 
-It's recommended to limit games to 30 per page/folder if you want to keep save state feature fully functional.
+It's recommended to limit games to 30 per page/folder if you want to keep save-state feature fully functional.
 
 
 **Q: Will it work with Famicom Mini too?**
@@ -121,9 +121,9 @@ A: I̶t̶ ̶i̶s̶ ̶p̶o̶s̶s̶i̶b̶l̶e̶ ̶i̶n̶ ̶t̶h̶e̶o̶r̶y̶ ̶b�
 I made it. Just enable this hack in menu and sync.
 
 
-**Q: Can I use save states on added games?**
+**Q: Can I use save-states on added games?**
 
-A: Yes, you can. Battery backed games can use their internal saves too. Note that saves are stored on writable partition along with other save states. When you delete a game, all save states remains in the memory. You can delete them at once using factory reset. But they take only few kilobytes.
+A: Yes, you can. Battery backed games can use their internal saves too. Note that saves are stored on writable partition along with other save-states. When you delete a game, all save-states remains in the memory. You can delete them at once using factory reset. But they take only few kilobytes.
 
 
 **Q: Your english is awful! Can we do something about it?**
