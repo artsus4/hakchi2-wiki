@@ -32,12 +32,14 @@ A: On this moment confirmed that emulator of NES Mini can run this mappers:
 * 9 (MMC2) - used only by Punch Out!!
 * 10 (MMC4) - used by few japanese games.
 * 71 (Codemasters/Camerica) - since version 2.08 mapper #71 games are automatically patched to mapper #2.
+* 86 - some Japanese games.
 * 87 - some Japanese games.
+* 184 - some... games
 * Famicom Disk System images - japanese ROMs with .fds extension, like original Super Mario Bros. 2, Doki Doki Panic, japanese version of Metroid, etc.
 
-It is possible that emulator supports some other mappers too. You can add those ROMs but application will warn you and game likely will not work. If it WILL work please report me about this game. I’ll add this mapper to list of confirmed.
+It is possible that emulator supports some other mappers too. You can add those ROMs but application will warn you and game likely will not work. If it WILL work please report me about this game. I’ll add this mapper to list of confirmed. But I already tested all mapper numbers.
 
-Also if you will patch unsupported game with mapper hack/patch/conversion it should work. There are many MMC3 patches over the Internet. Also it's easy to port games from Codemasters/Camerica to UNROM.
+Also if you will patch unsupported game with mapper hack/patch/conversion it should work. There are many MMC3 patches over the Internet. Also it's easy to port games from Codemasters/Camerica to UNROM. Mappers #71, #88, #95, #206 will be automatically patched and most games should work.
 
 **But there is no way to make support for unsupported mappers. Please stop asking me about it.**
 
@@ -49,7 +51,7 @@ Known problem games:
 * Bill & Ted's Excellent Adventure - same as Snow Bros. [My patch](http://clusterrr.com/roms/nes-patches/Bill%20&%20Ted's%20Excellent%20Video%20Game%20Adventure%20(U)%20-%20NES%20Mini%20patch.ips) .
 * Startropics II - actually it uses MMC6 mapper which is very similar to MMC3. The only difference is PRG protection. It's very easy to create patch. This my one: (http://clusterrr.com/roms/nes-patches/Startropics%20II%20-%20Zoda's%20Revenge%20(U)%20[!]_MMC3.ips)[patch].
 
-Those games will be automatically patched since version 2.09.
+Those games will be automatically patched since version 2.09. Please feel free to send me your patches.
 
 
 **Q: Where can I find list of games with mappers?**
@@ -64,12 +66,24 @@ A: NES Mini can emulate only NTSC NES. There is command line argument to enable 
 
 **Q: How many games can be uploaded to NES Mini?**
 
-A: Internal storage in NES Mini is really huge for ROMs (about ~300MB) but seems like it’s cannot allocate so much RAM when loading cover and savestates images. It's not recommended to upload >90~100 games.
+A: Internal storage in NES Mini is really huge for ROMs (about ~300MB) but shell designed to show 30 games and there are some issues with other number of games:
+* Thumbnail bar at the bottom of screen can show only ~45 covers. Other covers will be drawn beyond bounds of the screen.
+* Shell can show up to ~90 games but it can't allocate so much RAM to show game covers and save-state screenshots. So more games on screen means less save states.
+* Too few games cause problems, too. There are should be at least 12 games in menu to show them without glitches.
+Version 2.11 introduces folder feature to avoid those problems.
+
+**Q: How folders feature works? Why I can't customize my folders structure?**
+
+A: There is no way (yet?) to customize folders manually since it's too easy to break something. Folders structure will be created and alphabetically sorted automatically based on number of games and number of maximum games per page (you can select it via menu). There are two styles of folder structure:
+* Pages. Every page contains games and shortcuts to other pages. This style used when there are not so much games per page.
+* Tree. It looks more like folders and contains root directory with sub-directories. This style used when there are at least 12 pages with games because shell need at least 12 items to show them without glitches.
+
+It's recommended to limit games to 30 per page/folder if you want to keep savestate feature fully functional.
 
 
 **Q: Will it work with Famicom Mini too?**
 
-A: Yes, It’s confirmed. But you can't use extended font and hide selected original games. Maybe somebody will create Japanese font?
+A: Yes. You can select console type in the menu. Also hakchi2 can install custom Japanese font and simulate start on second controller.
 
 
 **Q: I can’t install driver!**
@@ -115,8 +129,8 @@ A: Yes, you can. Battery backed games can use their internal saves too. Note tha
 **Q: Your english is awful! Can we do something about it?**
 
 A: hakchi2 is opensource: https://github.com/ClusterM/hakchi2
-So you can clone it, fix, upload and make pull request. Same way you can add other languages and some cool features.
-Or just send me list of fixes.
+So you can clone it, fix, upload and make pull request. Or just send me list of fixes.
+Same way you can add other languages and some cool features. But I'll make some translation tool soon. It's better to wait for it.
 
 
 **Q: How to uninstall it?**
