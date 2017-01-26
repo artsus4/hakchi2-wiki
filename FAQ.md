@@ -75,7 +75,7 @@ Version 2.11 introduces folder feature to avoid those problems.
 **Q: How folders feature works? Why I can't customize my folders structure?**
 
 A: There is no way (yet?) to customize folders manually since it's too easy to break something. Folders structure will be created and alphabetically sorted automatically based on number of games and number of maximum games per page (you can select it via menu). There are two styles of folder structure:
-* Pages. Every page contains games and shortcuts to other pages. This style used when there are not so much games per page.
+* Pages. Every page contains games and shortcuts to other pages. This style used when there are not so much pages/folders.
 * Tree. It looks more like folders and contains root directory with sub-directories. This style used when there are at least 12 pages with games because shell need at least 12 items to show them without glitches.
 
 It's recommended to limit games to 30 per page/folder if you want to keep savestate feature fully functional.
