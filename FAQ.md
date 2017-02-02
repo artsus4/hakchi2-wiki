@@ -3,7 +3,7 @@
 A: This application can add more games to your Nintendo Classic Mini. All you need is to connect it to PC via microUSB cable. No soldering, no disassembling.
 
 
-**Q: So you are hacked NES Mini?**
+**Q: So are you hacked NES Mini?**
 
 A: No! It was my russian сomrade madmonkey. He created original “hakchi” tool. It was not very user friendly so I decided to create tool which is simple for everyone, not only Linux users. I named it “hakchi2” because I don’t like to coming up with names. So first version was 2.0 :)
 
