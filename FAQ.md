@@ -31,7 +31,6 @@ A: On this moment confirmed that emulator of NES Mini can run this mappers:
 * 7 (AxROM - ANROM/AMROM/etc.) - simple mapper used by games like Battletoads.
 * 9 (MMC2) - used only by Punch Out!!
 * 10 (MMC4) - used by few japanese games.
-* 71 (Codemasters/Camerica) - since version 2.08 mapper #71 games are automatically patched to mapper #2.
 * 86 - some Japanese games.
 * 87 - some Japanese games.
 * 184 - some... games
