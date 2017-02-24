@@ -84,3 +84,26 @@
 * Option to disable menu music.
 * Minor design fixes.
 * Other minor improvements.
+
+2.12:
+* Mods!
+* Total folder control. You can use folder tree constructor now to create folders, select images, rename and move everything as you want. Or just select predefined automatic algorithm. Thanks to NeoRame for images!
+* Autofire feature updated a bit, since X and Y will be used often now.
+* Optimization for large amount of games.
+* Box art images will be load automatically if PNG or JPEG file with same name is available.
+* English font updated, many characters added, so games like "720°" or "Alien³" will be shown without problems. Japanese font updated too, thanks to snakex!
+* Game Genie database (thanks to Nhakin!), hakchi2 already contains database with many GG codes and you can import more from Nestopia.
+* Box art images are with correct aspect ration now.
+Asiansteev fixed my terrible English :) Thanks!
+* Many other improvements.
+* Many fixes.
+
+2.13:
+* Finally hakchi2 shows size of all selected games in main window. Why I have not done it before?
+* One font to rule them all. New font contains HUGE amount of characters now. Including Latin supplement, Cyrillic, Hiragana, Katakana, etc. So NES Mini and Famicom Mini uses the same font now and you can create folders with very unusual characters (in Russian, for example).
+* The main idea to separate hakchi2 from non-NES games failed, so it's optimized for 3rd path emulators now (i.e. RetroArch).
+* Added presets for Sega 32x and Game Gear games, without images yet.
+"/bin/path-to-your-app" replaced by "/bin/" for unknown extensions.
+* Compression support! Since RetroArch can run games directly from archives it's possible now to compress non-NES games using 7-Zip. This feature enabled by default but you can disable it in the settings menu. Also you can add the whole archive (required by MAME games).
+* Fixed huge bug in folder manager when new folders were missed after first sync.
+* Some minor bugfixes.
