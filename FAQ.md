@@ -36,11 +36,9 @@ A: On this moment confirmed that emulator of NES Mini can run this mappers:
 * 184 - some... games
 * Famicom Disk System images - japanese ROMs with .fds extension, like original Super Mario Bros. 2, Doki Doki Panic, japanese version of Metroid, etc.
 
-It is possible that emulator supports some other mappers too. You can add those ROMs but application will warn you and game likely will not work. If it WILL work please report me about this game. I’ll add this mapper to list of confirmed. But I already tested all mapper numbers.
+It is possible that emulator supports some other mappers too. You can add those ROMs but application will warn you and game likely will not work.
 
-Also if you will patch unsupported game with mapper hack/patch/conversion it should work. There are many MMC3 patches over the Internet. Also it's easy to port games from Codemasters/Camerica to UNROM. Mappers #71, #88, #95, #206 will be automatically patched and most games should work.
-
-**But there is no way to make support for unsupported mappers. Please stop asking me about it.**
+Also if you will patch unsupported game with mapper hack/patch/conversion it should work. There are many MMC3 patches over the Internet.
 
 But even game’s mapper is supported some games are not working good without patches. Emulator in NES Mini tested only on default 30 games and actually sucks.
 Known problem games:
@@ -52,6 +50,8 @@ Known problem games:
 
 Those games will be automatically patched since version 2.09. Please feel free to send me your patches.
 
+Also it's possible to install 3rd-party emulator since version 2.12. It can run not only all NES games but also SNES, Genesis, GBA, N64, etc.. You can download the RetroArch mod here: https://github.com/ClusterM/retroarch-clover/releases
+
 
 **Q: Where can I find list of games with mappers?**
 
@@ -60,7 +60,7 @@ A: http://bootgod.dyndns.org:7777 and http://tuxnes.sourceforge.net/nesmapper.tx
 
 **Q: Can I play european/PAL games?**
 
-A: NES Mini can emulate only NTSC NES. There is command line argument to enable PAL emulation but it’s not working for some reason. All european NES Minis actually the same as USA versions and they are running NTSC versions of games. So you can play not all PAL games and this games will run faster. Use “(U)” and “(J)” ROMs if possible.
+A: NES Mini's default emulator can emulate only NTSC NES. There is command line argument to enable PAL emulation but it’s not working for some reason. All european NES Minis actually the same as USA versions and they are running NTSC versions of games. So you can play not all PAL games and this games will run faster. Use “(U)” and “(J)” ROMs if possible.
 
 
 **Q: How many games can be uploaded to NES Mini?**
@@ -71,13 +71,10 @@ A: Internal storage in NES Mini is really huge for ROMs (about ~300MB) but shell
 * Too few games cause problems, too. There are should be at least 12 games in menu to show them without glitches.
 Version 2.11 introduces folder feature to avoid those problems.
 
+
 **Q: How folders feature works? Why I can't customize my folders structure?**
 
-A: There is no way (yet?) to customize folders manually since it's too easy to break something. Folders structure will be created and alphabetically sorted automatically based on number of games and number of maximum games per page (you can select it via menu). There are two styles of folder structure:
-* Pages. Every page contains games and shortcuts to other pages. This style used when there are not so much pages/folders.
-* Tree. It looks more like folders and contains root directory with sub-directories. This style used when there are at least 12 pages with games because shell need at least 12 items to show them without glitches.
-
-It's recommended to limit games to 30 per page/folder if you want to keep save-state feature fully functional.
+A: Since version 2.12 you can create any custom folder structure using Folder Manager. It's possible to edit folder names, images, etc. But it's recommended to limit games to 30 per page/folder if you want to keep save-state feature fully functional.
 
 
 **Q: Will it work with Famicom Mini too?**
@@ -87,7 +84,7 @@ A: Yes. You can select console type in the menu. Also hakchi2 can install custom
 
 **Q: I can’t install driver!**
 
-A: If you are using Windows Vista, 7, 8 or 10 disable driver signature verification (Google it) and try again.
+A: If you are using Windows Vista, 7, 8 or 10 disable driver signature verification (Google it) and try again. Also try to use Zadig driver installer: http://zadig.akeo.ie/
 
 
 **Q: It says that MD5 checksum is unknown! What I need to do?**
@@ -106,7 +103,7 @@ A: It’s pretty hard to brick it. You always can flash original kernel back (vi
 
 **Q: How to update hakchi2 to new version? I don’t want to lose my games, kernel image and settings.**
 
-A: Just copy all files of the new version into the folder of old version with replacement. Or just copy folders “dump” and “games” into the directory of new version. Also copy “config.ini” if it’s exists.
+A: Just copy all files of the new version into the folder of old version with replacement. Or just copy folders “dump”, “games” and "config" (or "config.ini" for old versions).
 
 
 **Q: Some games are displayed with an incorrect name, some characters are missed. Why?**
