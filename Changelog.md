@@ -103,7 +103,7 @@ Asiansteev fixed my terrible English :) Thanks!
 * One font to rule them all. New font contains HUGE amount of characters now. Including Latin supplement, Cyrillic, Hiragana, Katakana, etc. So NES Mini and Famicom Mini uses the same font now and you can create folders with very unusual characters (in Russian, for example).
 * The main idea to separate hakchi2 from non-NES games failed, so it's optimized for 3rd path emulators now (i.e. RetroArch).
 * Added presets for Sega 32x and Game Gear games, without images yet.
-"/bin/path-to-your-app" replaced by "/bin/" for unknown extensions.
+"/bin/path-to-your-app" replaced by "/bin/ext" for unknown extensions.
 * Compression support! Since RetroArch can run games directly from archives it's possible now to compress non-NES games using 7-Zip. This feature enabled by default but you can disable it in the settings menu. Also you can add the whole archive (required by MAME games).
 * Fixed huge bug in folder manager when new folders were missed after first sync.
 * Some minor bugfixes.
