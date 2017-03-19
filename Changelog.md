@@ -107,3 +107,17 @@ Asiansteev fixed my terrible English :) Thanks!
 * Compression support! Since RetroArch can run games directly from archives it's possible now to compress non-NES games using 7-Zip. This feature enabled by default but you can disable it in the settings menu. Also you can add the whole archive (required by MAME games).
 * Fixed huge bug in folder manager when new folders were missed after first sync.
 * Some minor bugfixes.
+
+2.14:
+* Main modification - new transfer method. It's very fast. You can upload 300 MBytes of games in ~1.5-2 minutes. Also you don't need to hold reset and switch your NES Mini on/off. Just connect it to PC and turn on as usual.
+* It's possible to change settings without re-uploading games.
+* New driver installer should work on all Windows versions since XP. Please report me about any problems.
+* Also better compatibility with Windows XP.
+* You can drag'n'drop box art to main window now.
+* Also it's possible to drag'n'drop module files.
+* Automatic NES Mini/Famicom Mini detection.
+* New hacked clovercon driver allows to use most (or all?) 3rd party classic controllers now.
+* Autofire working for X/Y buttons too now (enable in menu and hold select+X or select+Y for a second).
+* USB library changed to LibWinUsb, it's more portable.
+* New game consoles, new images (thanks to NeoRame!)
+* Many minor bugfixes.
