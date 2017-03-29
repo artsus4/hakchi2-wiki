@@ -121,3 +121,11 @@ Asiansteev fixed my terrible English :) Thanks!
 * USB library changed to LibWinUsb, it's more portable.
 * New game consoles, new images (thanks to NeoRame!)
 * Many minor bugfixes.
+
+2.15:
+* Using internal games packing instead of external "tar" util, it will fix "Can't pack games" error.
+* RAM memory usage optimizations, hakchi2 should work fine on x86 systems now.
+* Possible memory leak fix during folder navigation (testing required).
+* Free flash memory space automatic check and basic memory usage statistics when not enough flash memory available.
+* clovercon driver creates /dev/clovercon1 and /dev/clovercon2 now, you can read current buttons state from it, it's useful for some scripts.
+* Translations to German, Greek, Spain, Italian and Polish languages. Write if you want to help with translation.
