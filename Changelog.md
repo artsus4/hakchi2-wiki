@@ -129,3 +129,8 @@ Asiansteev fixed my terrible English :) Thanks!
 * Free flash memory space automatic check and basic memory usage statistics when not enough flash memory available.
 * clovercon driver creates /dev/clovercon1 and /dev/clovercon2 now, you can read current buttons state from it, it's useful for some scripts.
 * Translations to German, Greek, Spain, Italian and Polish languages. Write if you want to help with translation.
+
+2.16:
+* Save-State Manager. It will help you to transfer save-states from NES Mini to PC and vice-versa as well as delete unwanted save-states. Remember that save-states will be remained in the system ever after game is deleted, so this tool is very usefull to cleanup your NES Mini and free some space.
+* FTP Server! It will be helpfull for advanced users, this tool allows to transfer any files from/to NES Mini using any FTP client. So you can easyly dump original games from NES Mini, edit some configs, etc. And it will help you to cleanup system. I'll update FAQ soon.
+* Telnet Server. It provides access to NES Mini's command line interface. Basic Linux knowledge required.
