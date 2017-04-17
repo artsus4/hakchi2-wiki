@@ -4,7 +4,8 @@
 
 
 **Q: So you were the first to hack the NES Classic Mini?**
-No! It was my Russian сomrade, madmonkey, who first published a successful hack of the the NES Classic Mini. He created the original “hakchi” tool. However, it was not very user-friendly, so I decided to create a tool which is simple to use by anyone--not only Linux users. I named it “hakchi2” because I don’t like to come up with names. So my first version was a 2.0 release :)
+
+**A:** No! It was my Russian сomrade, madmonkey, who first published a successful hack of the the NES Classic Mini. He created the original “hakchi” tool. However, it was not very user-friendly, so I decided to create a tool which is simple to use by anyone--not only Linux users. I named it “hakchi2” because I don’t like to come up with names. So my first version was a 2.0 release :)
 
 
 **Q: How do I use the tool?**
