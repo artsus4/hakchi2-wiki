@@ -211,6 +211,7 @@ Since version 2.16 all this functions are built in hakchi2, just check "Tools" m
 **A:** hakchi2 is opensource: https://github.com/ClusterM/hakchi2
 So you can clone it, fix, upload and make pull requests. Or just send me list of fixes.
 Also you can help to translate hakchi2 to your language. We are using Google Sheets for it: https://docs.google.com/spreadsheets/d/1yrXH-6g61klKmuXTVf3f0ah8DCQObu-9YEJRoWTeuik/
+
 Contact me and I'll give you access.
 
 
