@@ -106,6 +106,12 @@ Version 2.11 introduces a folder feature to avoid those problems.
 **A:** Mac users can use Parallels for virtualization. Linux users can use Wine.
 
 
+**Q: I got a weird error message, what I need to do?**
+
+**A:** First of all, try to disable antivirus software.
+If you are still receiving a error message, follow this guide: https://github.com/ClusterM/hakchi2/wiki/If-you-have-any-problems
+
+
 **Q: It says that the MD5 checksum is unknown! What I need to do?**
 
 **A:** There are two possible reasons:
@@ -173,9 +179,9 @@ I made it. Just enable this hack in the menu.
 Try to unpack the application and do everything again. Make sure that all files in place and not corrupted.
 
 
-**Q: Where I can find a list of all command line arguments?**
+**Q: Where I can find a list of all command line arguments for original emulator?**
 
-**A:** The internal emulator of the NES Mini has many command line arguments. Seems like some of them are not working, but there is a full listing of "--help" output:
+**A:** The internal emulator (it's named "kachikachi") of the NES Mini has many command line arguments. Seems like some of them are not working, but there is a full listing of "--help" output:
 [https://github.com/ClusterM/hakchi2/wiki/Command-line-arguments](https://github.com/ClusterM/hakchi2/wiki/Command-line-arguments)
 
 
@@ -204,6 +210,12 @@ Since version 2.16 all this functions are built in hakchi2, just check "Tools" m
 **Q: How do I uninstall it?**
 
 **A:** There is an uninstall feature since version 2.08.
+
+
+**Q: I found a bug! How can I help you to fix it?**
+
+**A:** Create an issue on GitHub: https://github.com/ClusterM/hakchi2/issues
+Of course you can ask about it on some forums. But I can't read them all. Please use the link above if you want to let me know about this bug.
 
 
 **Q: Your English is awful! Can we do something about it?**
