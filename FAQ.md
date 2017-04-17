@@ -220,7 +220,7 @@ Since version 2.16 all this functions are built in hakchi2, just check "Tools" m
 Of course you can ask about it on some forums. But I can't read them all. Please use the link above if you want to let me know about this bug. Please do not report me about emulation bugs, hakchi2 is not emulator.
 
 
-**Q: Have you planned some other coon features?**
+**Q: Have you planned some other cool features?**
 
 **A:** I want to do only one more thing - totally rework interface. I want to combine main window and Folder Manager, allow to select multiple games for some group operations, filter/sort games by platform. Actually I'm not so good at GUI design and I need some help.
 
