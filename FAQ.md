@@ -55,7 +55,8 @@ Also it's possible to install 3rd-party emulator.
 
 **Q: Hey! I know that NES Mini can run those unsupported games with other mappers. Also I know that it can run games for other consoles like SNES, GBA and ever N64!**
 
-**A:** It's true. Since version 2.09 it's possible to install user mods and other emulators. There is out project with RetroArch emulator: https://github.com/ClusterM/retroarch-clover/releases
+**A:** It's true. Since version 2.09 it's possible to install user mods and other emulators. There is our project with RetroArch emulator module: https://github.com/ClusterM/retroarch-clover/releases
+
 Just download "retroarch_with_cores.zip", drag and drop it on hakchi2's window and follow instructions. You can find more info on RetroArch's repo: https://github.com/ClusterM/retroarch-clover/
 
 
@@ -216,7 +217,12 @@ Since version 2.16 all this functions are built in hakchi2, just check "Tools" m
 **Q: I found a bug! How can I help you to fix it?**
 
 **A:** Create an issue on GitHub: https://github.com/ClusterM/hakchi2/issues
-Of course you can ask about it on some forums. But I can't read them all. Please use the link above if you want to let me know about this bug.
+Of course you can ask about it on some forums. But I can't read them all. Please use the link above if you want to let me know about this bug. Please do not report me about emulation bugs, hakchi2 is not emulator.
+
+
+**Q: Have you planned some other coon features?**
+
+**A:** I want to do only one more thing - totally rework interface. I want to combine main window and Folder Manager, allow to select multiple games for some group operations, filter/sort games by platform. Actually I'm not so good at GUI design and I need some help.
 
 
 **Q: Your English is awful! Can we do something about it?**
