@@ -237,3 +237,5 @@ Contact me and I'll give you access.
 **Q: How can I donate to you?**
 
 **A:** My PayPal: clusterrr@clusterrr.com
+
+And thank you! Also try to send some donation to madmonkey. He declines to receive any money, but he made great work and really deserves this.
