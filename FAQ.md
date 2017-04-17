@@ -198,6 +198,7 @@ Try to unpack the application and do everything again. Make sure that all files 
 **Q: Can I access NES Mini's internal file system and command line? It will help me create some cool mods!**
 
 **A:** Yes, I created clovershell-client for it: https://github.com/ClusterM/clovershell-client/releases
+
 It requires clovershell-daemon module to be installed but it's already installed if you are using hakchi2 v2.14 or newer.
 Since version 2.16 all this functions are built in hakchi2, just check "Tools" menu.
 
