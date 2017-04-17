@@ -10,7 +10,7 @@
 
 **Q: How do I use the tool?**
 
-Basically you just need to unpack it somewhere on your harddrive (installation is not required), run it, press “Add more games”, select some game ROMs and press “Synchronize”. The application will guide you through this process.
+**A:** Basically you just need to unpack it somewhere on your hard-drive (installation is not required), run it, press “Add more games”, select some game ROMs and press “Synchronize”. The application will guide you through this process.
 
 
 **Q: How is it working?**
@@ -50,7 +50,7 @@ Known problem games:
 
 Those games will be automatically patched since version 2.09. Please feel free to send me your patches.
 
-Also it's possible to install 3rd-party emulator... since version 2.12. This can run not only all NES games but also SNES, Genesis, GBA, N64, etc.. You can download the RetroArch mod here: https://github.com/ClusterM/retroarch-clover/releases
+Also it's possible to install 3rd-party emulator.
 
 
 **Q: Hey! I know that NES Mini can run those unsupported games with other mappers. Also I know that it can run games for other consoles like SNES, GBA and ever N64!**
