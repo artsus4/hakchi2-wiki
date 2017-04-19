@@ -12,7 +12,7 @@ At first time, we did not have feedback from NES Mini over USB connection, so we
 
 ## System overview
 
-NES Classic Mini is just tiny computer with ARM processor and Linux. So basic Linux knowledge will be very handy if you want to create some advanced scripts. It's not so difficult, really.
+NES Classic Mini is just a tiny computer with ARM processor and Linux. So basic Linux knowledge will be very handy if you want to create some advanced scripts. It's not so difficult, really.
 
 
 ### NAND flash, file system and directory structure
@@ -43,8 +43,7 @@ Note that the directories are nested inside each other. It means that:
 * **/** - points to root of read-only, factory pre-programmed partition
 * **/etc** - points to "**/etc**" folder on read-only, factory pre-programmed partition
 * **/usr/share/games** - points to "**/usr/share/games**" folder on read-only, factory pre-programmed partition
-* **/tmp** - points to writable RAM disk
-* **/var** - points to other writable RAM disk
+* **/tmp** - points to other writable RAM disk
 * **/var/lib** - points to writable partition on NAND flash memory
 
 It can be difficult to understand for Windows users but you'll get it.
@@ -69,3 +68,24 @@ Let's sum everything up. To edit any file/directory on read-only file system you
 * After reboot edit this file/directory without any problems
 
 It's better to understand on practice, so keep reading.
+
+
+## How to create module correctly
+
+### Built in functions of hakchi
+
+There are some useful functions defined into ""**/etc/preinit.d/b0010_functions**" script. You can use them into your preinit scripts since "b0010_functions" executed before.
+* **overmount <*file/directory*>** - overmounts file directory, example: "**overmount /usr/share/games/nes/kachikachi**" overmounts "/var/lib/hakchi/usr/share/games/nes/kachikachi" on "overmount /usr/share/games/nes/kachikachi" making it writable, it can be used with two arguments too to set custom destination mount point
+* **copy <*path_a*> <*path_b*>** - copies file/directory using rsync (recommended to use instead of **cp**)
+* **copy_mask <*path_a*> <*path_b*>** - same as **copy** but can be used with mask, this function is unsafe, avoid spaces in filenames!
+
+Please read ""**/etc/preinit.d/b0010_functions**" to understand other functions. Also there are useful pre-defined variables:
+* **modname**=hakchi
+* **modpath**=/var/lib/hakchi (but really it's "*/newroot/var/lib/hakchi*" on pre-init stage)
+* **installpath**=$**mountpoint**/var/lib/$**modname**
+* **firmwarepath**=$**installpath**/firmware
+* **rootfs**=$**installpath**/rootfs
+* **preinit**=$**rootfs**/etc/preinit
+* **preinitpath**=$**preinit**.d
+* **gamepath**=/usr/share/games/nes/kachikachi
+* **temppath**=/tmp
