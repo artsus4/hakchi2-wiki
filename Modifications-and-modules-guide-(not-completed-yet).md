@@ -60,7 +60,7 @@ So, we can't edit any internal files or add some games to **/usr/share/games** d
 
 He is doing the same with "**/etc**" and "**/bin**", after this hakchi installs additional configs and scripts there. So we can write to "**/etc**" and "**/bin**" while original files will be untouched. It's very important. You can delete *all* data you want but your NES Mini will not be bricked since original files are safe.
 
-So, why we need to install custom kernel? Actually it has only one important modification: When NES Mini boots up it executes "**/etc/preinit**" (or "**/var/lib/hakchi/rootfs/etc/preinit**", it's *the same* file) script on the very early boot stage. This script, in turn, executes all files from "**/etc/preinit.d**" directory. So we can store our overmounting scripts there.
+So, why we need to install custom kernel? Actually it has only one important modification: When NES Mini boots up it executes "**/etc/preinit**" (or "**/var/lib/hakchi/rootfs/etc/preinit**", it's *the same* file) script on the very early boot stage. This script, in turn, executes files from "**/etc/preinit.d**" directory. So we can store our overmounting scripts there.
 
 Let's sum everything up. To edit any file/directory on read-only file system you need:
 * Create copy of this file/directory into "**/var/lib/hakchi/rootfs/*your_directory***"
@@ -89,6 +89,26 @@ Please read ""**/etc/preinit.d/b0010_functions**" to understand other functions.
 * **preinitpath**=$**preinit**.d
 * **gamepath**=/usr/share/games/nes/kachikachi
 * **temppath**=/tmp
+
+
+### Structure of .hmod files
+
+Modules for hakchi/hakchi2 should be distributed as files with "**.hmod**" extension. Actually it's just renamed .tar.gz archive, so you can rename any .hmod file, unpack and inspect how it's made. There are several such files into "**mods\hmods**" directory of hakchi2 (it's a pre-installed mods: controller hack, font hack and clovershell daemon). Also hakchi2 can install unpacked hmods if it's a directory, you can find one such example into "**user_mods\music_hack.hmod**", this mod replaces menu music (with silence by default but you can change wav file with your favorite music track).
+
+So, what .hmod archive *can* contain:
+* First of all, any files which you need to install on NES Mini, it's recommended keep directory structure
+* Optional "**install**" script
+* Optional "**uninstall** script
+* Optional "**readme.txt**" file with some description/info
+
+What happens during module installation:
+* If "**install**" file exists, it will be executed, it can contain any hakchi functions and variables from above
+* If "**install**" returned non-zero value or it not exists, all files will be copied to "**/var/lib/hakchi/rootfs**" directory (excluding "install", "uninstall" and readme files)
+* If "**uninstall**" file exists it will be stored into "**/var/lib/hakchi/hmod**" directory
+* If "**uninstall**" file does not exists, it will be created automatically based on installed files list
+
+What happens during module uninstallation:
+* Corresponding "uninstall" file will be executed and removed
 
 
 ## Examples
