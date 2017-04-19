@@ -1,6 +1,6 @@
 # Modifications and modules guide
 
-Me and madmonkey spent many hours to create modules system for hakchi/hakchi2 (it's compatible) to let people create, share and download various modules with custom skins, music, emulators, etc. It's time to write some guide to let you create your own modifications!
+Me and madmonkey spent many hours to create modules system for hakchi/hakchi2 (it's compatible) to let people create, share and download various modules with custom skins, music, emulators, etc. It's time to write some guide to let you create your own modifications! I'll show you some examples below. So if you can't understand anything, please read until examples section.
 
 
 ## Tools
@@ -89,3 +89,8 @@ Please read ""**/etc/preinit.d/b0010_functions**" to understand other functions.
 * **preinitpath**=$**preinit**.d
 * **gamepath**=/usr/share/games/nes/kachikachi
 * **temppath**=/tmp
+
+
+## Examples
+
+todo
