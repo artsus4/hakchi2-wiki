@@ -1,1 +1,0 @@
-Me and madmonkey spent many hours to create modules system for hakchi/hakchi2 (it's compatible) to let people create, share and download modules with custom skins, music, emulator, etc. It's time to write some guide.
