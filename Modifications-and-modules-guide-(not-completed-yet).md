@@ -108,7 +108,7 @@ What happens during module installation:
 * If "**uninstall**" file does not exists, it will be created automatically based on installed files list
 
 What happens during module uninstallation:
-* Corresponding "uninstall" file will be executed and removed
+* Corresponding "**uninstall**" file will be executed and removed
 
 
 ## Examples
