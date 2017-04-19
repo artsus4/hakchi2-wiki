@@ -3,6 +3,13 @@
 Me and madmonkey spent many hours to create modules system for hakchi/hakchi2 (it's compatible) to let people create, share and download various modules with custom skins, music, emulators, etc. It's time to write some guide to let you create your own modifications!
 
 
+## Tools
+
+At first time, we did not have feedback from NES Mini over USB connection, so we used UART cable which was soldered inside NES Mini. So it was very difficult to to create some mods without this cable and soldering skills. But I discovered method which allows to access NES Mini's file system and command line using only USB connection. I called it "clovershell" and it's built in hakchi2 since version 2.14. So you don't need any extra hardware to explore NES Mini. Yes, UART cable still recommended but you really need only this software now:
+* Telnet client - software to access NES Mini's command line, bundled with Windows "telnet.exe" is fine but "putty" is recommended.
+* FTP client - software to transfer files, bundled with Windows will work but you can use any FTP client.
+
+
 ## System overview
 
 NES Classic Mini is just tiny computer with ARM processor and Linux. So basic Linux knowledge will be very handy if you want to create some advanced scripts. It's not so difficult, really.
@@ -18,7 +25,7 @@ There are main directories of NES Classic Mini after system boot by default:
 * **/etc/init.d** - startup scripts
 * **/lib** - libraries and modules
 * **/usr/share** - images, sounds and other resources
-* **/usr/share/games/kachikachi/nes** - games are here
+* **/usr/share/games/nes/kachikachi** - games are here
 * **/var**, **/tmp**, **/run** - temporary files
 * **/var/lib** - all writable user's data (savestates, settings)
 
@@ -41,3 +48,24 @@ Note that the directories are nested inside each other. It means that:
 * **/var/lib** - points to writable partition on NAND flash memory
 
 It can be difficult to understand for Windows users but you'll get it.
+
+
+### File system when hakchi installed
+
+So, we can't edit any internal files or add some games to **/usr/share/games** directory, it's read-only file system. But actually we don't need to do it. We can create any files/directories into "**/var/lib" and overmount them over the original files/directories. So when hakchi during installation doing the following:
+* Creates directory "**/var/lib/hakchi**" to store all additional data, it remains after system shutdown
+* Creates directory "**/var/lib/hakchi/rootfs**" to store all files/directories which need to replace
+* Creates directory "**/var/lib/hakchi/rootfs/usr/share/games/nes/kachikachi**"
+* Copies all games from "**/usr/share/games/nes/kachikachi**" to "**/var/lib/hakchi/rootfs/usr/share/games/nes/kachikachi**"
+* Overmounts "**/var/lib/hakchi/rootfs/usr/share/games/nes/kachikachi**" over "**/usr/share/games/nes/kachikachi**", so it's writable now
+
+He is doing the same with "**/etc**" and "**/bin**", after this hakchi installs additional configs and scripts there. So we can write to "**/etc**" and "**/bin**" while original files will be untouched. It's very important. You can delete *all* data you want but your NES Mini will not be bricked since original files are safe.
+
+So, why we need to install custom kernel? Actually it has only one important modification: When NES Mini boots up it executes "**/etc/preinit**" (or "**/var/lib/hakchi/rootfs/etc/preinit**", it's *the same* file) script on the very early boot stage. This script, in turn, executes all files from "**/etc/preinit.d**" directory. So we can store our overmounting scripts there.
+
+Let's sum everything up. To edit any file/directory on read-only file system you need:
+* Create copy of this file/directory into "**/var/lib/hakchi/rootfs/*your_directory***"
+* Create script file into **/etc/preinit.d**" which overmounts "**/var/lib/hakchi/rootfs/*your_directory***" on "**/*your_directory***"
+* After reboot edit this file/directory without any problems
+
+It's better to understand on practice, so keep reading.
