@@ -23,8 +23,8 @@ There are main directories of NES Classic Mini after system boot by default:
 * **/var/lib** - all writable user's data (savestates, settings)
 
 The first thing you need to understand is mounting. In Linux devices and directories can be mounted on other directories. Internal flash memory devided into several partitions.
-* ~20MB in size, factory preprogrammed, read-only, contains all system data and games, mounted on **/** (root)
-* ~384MB in size, writable, contains all user settings and save-states, mounted on **/var/lib**
+* ~**20MB** in size, factory preprogrammed, **read-only**, contains all system data and games, mounted on **/** (root)
+* ~**384MB** in size, **writable**, contains all user settings and save-states, mounted on **/var/lib**
 
 So you can't rewrite any original data but there are much free space for additional data. Also there are RAM disks:
 * Mounted on **/tmp**
