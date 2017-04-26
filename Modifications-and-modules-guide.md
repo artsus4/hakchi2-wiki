@@ -84,12 +84,12 @@ It's better to understand on practice, so keep reading.
 
 ### Built in functions of hakchi
 
-There are some useful functions defined into ""**/etc/preinit.d/b0010_functions**" script. You can use them into your preinit scripts since "b0010_functions" executed before.
+There are some useful functions defined into "**/etc/preinit.d/b0010_functions**" script. You can use them into your preinit scripts since "b0010_functions" executed before.
 * **overmount <*file/directory*>** - overmounts file directory, example: "**overmount /usr/share/games/nes/kachikachi**" overmounts "/var/lib/hakchi/usr/share/games/nes/kachikachi" on "overmount /usr/share/games/nes/kachikachi" making it writable, it can be used with two arguments too to set custom destination mount point
 * **copy <*path_a*> <*path_b*>** - copies file/directory using rsync (recommended to use instead of **cp**)
 * **copy_mask <*path_a*> <*path_b*>** - same as **copy** but can be used with mask, this function is unsafe, avoid spaces in filenames!
 
-Please read ""**/etc/preinit.d/b0010_functions**" to understand other functions. Also there are useful pre-defined variables:
+Please read "**/etc/preinit.d/b0010_functions**" to understand other functions. Also there are useful pre-defined variables:
 * **modname**=hakchi
 * **modpath**=/var/lib/hakchi (but really it's "*/newroot/var/lib/hakchi*" on pre-init stage)
 * **installpath**=$**mountpoint**/var/lib/$**modname**
