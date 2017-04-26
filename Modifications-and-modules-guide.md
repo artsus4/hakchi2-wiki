@@ -350,3 +350,20 @@ Finally, lets write password protection scrip.! I'll store it as "**/etc/init.d/
     done
 
 That's it! NES Mini will ask for password during boot now. I'll bundle this mod with hakchi v2.17 too.
+
+
+### Bonus - translate Famicom into English language
+
+Just in case you don't know - it's easy to transform your NES Classic Mini into Famicom Mini and vice-versa. All you need is to upload firmware file into "**/var/lib/hakchi/firmware**" folder (create it). Of course I can't share firmware files due to copyright violations but you can easily find them on torrents:
+* **dp-hvc-release-v1.0.5-0-g2f04d11.hsqs** - to transform NES Mini into Famicom Mini
+* **dp-nes-release-v1.0.2-0-g99e37e1.hsqs** - to transform Famicom Mini into NES Mini
+
+Just upload one of those files using FTP and reboot your console. Don't forget also to change "Console type" in hakchi2, select foreign "Original 30 games" and sync if you want to get foreign games too, not only foreign GUI.
+
+But what if you want to use Famicom Mini with NES Mini's language of interface? Actually it's very simple to do. You need:
+
+* Overmount "**/usr/share/clover-ui/resources/scripts/system.lua**" file using this file from NES Mini, it will enable language selection dialog and icon
+* Overmount the whole "**/usr/share/clover-ui/resources/strings**" folder, it contains strings for all languages (btw, you can edit them too if you want)
+* Overmount "**/usr/share/clover-ui/resources/fonts/hvc**" folder with "**/usr/share/clover-ui/resources/fonts/nes**" folder extracted from NES Classic Mini.
+
+Sorry, I can't share those files. But you can extract them on your own. Let's take this as your homework :)
