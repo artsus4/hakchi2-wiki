@@ -11,7 +11,7 @@ At first time, we did not have feedback from NES Mini over USB connection, so we
 
 ![UART pinout](http://clusterrr.com/dump/nes_mini_uart.jpg)
 
-So it was very difficult to to create some mods without this cable and soldering skills. But I discovered method which allows to access NES Mini's file system and command line using only USB connection. I called it "clovershell" and it's built in hakchi2 since version 2.14. So you don't need any extra hardware to explore NES Mini. Yes, UART cable still recommended but everything can be done without soldering now, you need only software.
+So it was very difficult to create some mods without this cable and soldering skills. But I discovered method which allows to access NES Mini's file system and command line using only USB connection. I called it "clovershell" and it's built in hakchi2 since version 2.14. So you don't need any extra hardware to explore NES Mini. Yes, UART cable still recommended but everything can be done without soldering now, you need only software.
 
 All required software is built in hakchi2 since version 2.16, check "Tools" menu:
 
