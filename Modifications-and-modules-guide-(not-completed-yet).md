@@ -296,14 +296,14 @@ But we need to convert them into RAW format since there is no any software to sh
 
 This command loads "**/etc/password.raw.gz**" file and writes unzipped data to "**/dev/fb0**" pseudo-file which is frame-buffer representation. 
 
-Finally, lets write password protection script! I'll store it as "**/etc/init.d/S810password**" which is executed after "**S79clovercon**" (controller driver) but before "**S81clover-mcp**" (main GUI):
+Finally, lets write password protection scrip.! I'll store it as "**/etc/init.d/S810password**" which is executed after "**S79clovercon**" (controller driver) but before "**S81clover-mcp**" (main GUI). Please note that line endings **MUST** be UNIX-style (\n instead of \r\n). Also please note that you can't brick your NES Mini but any error can cause boot loop or any other fail during startup. Don't panic, you can remove broken script using "uninstall" process. So, lets go!
 
     #!/bin/sh
 
     # Some constants
     # Controller pseudo-file
     clovercon=/dev/input/by-path/platform-twi.1-event-joystick
-    # Password patters - it's Konami Code :)
+    # Password pattern - it's Konami Code :)
     password="c202 c202 c302 c302 c002 c102 c002 c102 3101 3001 3b01"
     # Max tries
     max_tries=30
@@ -317,14 +317,14 @@ Finally, lets write password protection script! I'll store it as "**/etc/init.d/
 
     # Endless loop
     while [ true ]; do
-      # Wait while pseudo-file doesn't exists (controller not connected or not initialized yet)
+      # Wait while pseudo-file doesn't exists (controller is not connected or is not initialized yet)
       while [ ! -e $clovercon ]; do usleep 100; done
       # Reading buttons
       buttons=$(cat $clovercon | hexdump -v -e '1/1 "%02x"' -n 32)     
       buttons=${buttons:20:4}
       # Appending pressed button to "str" variable
       str="$str $buttons"
-      # If "str" variable is longer that password string, cut it
+      # If "str" variable is longer than password string, cut it
       # So we get only last presses
       [ "${#str}" -gt "${#password}" ] && str="${str:$((${#str}-${#password})):${#password}}"
 
