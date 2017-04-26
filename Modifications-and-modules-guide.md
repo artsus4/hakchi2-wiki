@@ -226,7 +226,7 @@ There is other config file - "**/usr/share/clover-ui/resources/sprites/nes.json*
 
 ![nes.json](http://clusterrr.com/dump/nes_json.png)
 
-So lets change our "**install**" script to replace "*"sourceSize":[12,8]*" on "*"sourceSize":[0,0]*":
+So lets change our "**install**" script to replace sprite properties:
 
     # Lines started with "#" are ignored and can be used as comments
     # Next line defines "scnfile" variable with path to "sys_game_thumbnail.scn" file
