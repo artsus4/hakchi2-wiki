@@ -65,7 +65,7 @@ He is doing the same with "**/etc**" and "**/bin**", after this hakchi installs 
 
 So, why we need to install custom kernel? Actually it has only one important modification: When NES Mini boots up it executes "**/etc/preinit**" (or "**/var/lib/hakchi/rootfs/etc/preinit**", it's *the same* file) script on the very early boot stage. This script, in turn, executes files from "**/etc/preinit.d**" directory. So we can store our overmounting scripts there.
 
-Let's sum everything up. To edit any file/directory on read-only file system you need:
+Lets sum everything up. To edit any file/directory on read-only file system you need:
 * Create copy of this file/directory into "**/var/lib/hakchi/rootfs/*your_directory***"
 * Create script file into **/etc/preinit.d**" which overmounts "**/var/lib/hakchi/rootfs/*your_directory***" on "**/*your_directory***"
 * After reboot edit this file/directory without any problems
@@ -120,7 +120,7 @@ What happens during module uninstallation:
 
 ## Examples
 
-### Custom skin mod
+### Simple file replacement - custom skin mod
 
 Lets start with something very simple. Do you want to customize your NES Mini and create your own theme for it? So lets locate it inside NES Classic Mini. At first, enable FTP server:
 
@@ -132,7 +132,7 @@ It's easy to realize that all images stored into **/usr/share/clover-ui/resource
 
 ![Skin](http://clusterrr.com/dump/nes_mini_skin.png)
 
-So we can download this file and edit using your favorite graphic editor without any problems! But... we can't rewrite this file, it's stored on read-only file system inside NES Mini. But we can write files inside "/var/lib" directory, so lets save our modified file as **/var/lib/hakchi/rootfs/usr/share/clover-ui/resources/sprites/nes.png**:
+So we can download this file and edit using your favorite graphic editor without any problems! But... we can't rewrite this file, it's stored on read-only file system inside NES Mini. But we can write files inside "/var/lib" directory, so lets save our modified file as ***/var/lib/hakchi/rootfs*/usr/share/clover-ui/resources/sprites/nes.png**:
 
 ![Skin](http://clusterrr.com/dump/nes_mini_skin2.png)
 
@@ -168,6 +168,84 @@ But you should distribute your mods not as directories but as single ".hmod" fil
 
 ![Packing hmod](http://clusterrr.com/dump/hakchi2_hmod_packed.png)
 
-So we have "**awesome_skin.hmod**" file now which can be easily distributed.
+So we have "**awesome_skin.hmod**" file now which can be easily shared with other users. All they need to do is just drag-and-drop this file on hakchi2's window. And it's still compatible with original madmonkey's hakchi.
 
 You can use the same way to edit any other NES Mini's files: music, sounds, text, etc.
+
+
+### Basic scripting - lets remove thumbnails
+
+Many people asked me to remove thumbnails at the bottom of the screen. This feature was introduced in early versions but removed later. So lets create mod to do it!
+
+Let's check files of NES Mini... There is "**/usr/share/clover-ui/resources/prefab/sys_game_thumbnail.scn**" file with some JSON data. And there is "enabled" boolean variable!
+
+![sys_game_thumbnail.scn](http://clusterrr.com/dump/thumbnails_scn.png)
+
+You already know what to do from previous example:
+* Download "**sys_game_thumbnail.scn**" file to PC
+* Edit it, change "enabled" from "true" to "false"
+* Upload it to NES Mini as "***/var/lib/hakchi/rootfs*/usr/share/clover-ui/resources/prefab/sys_game_thumbnail.scn**"
+* Create pre-init script to overmount this file
+
+But we will not do it. We will use other method. Open "**user_mods**" directory inside hakchi2's directory, create folder named "**remove_thumbnails.hmod**" here and create file "**install**" inside it. It's our installation script which will be executed during mod installation process. Lets write it:
+
+    # Lines started with "#" are ignored and can be used as comments
+    # Next line defines "scnfile" variable with path to "sys_game_thumbnail.scn" file
+    scnfile=/usr/share/clover-ui/resources/prefab/sys_game_thumbnail.scn
+    # This line defines "preinitfile" variable with pre-init file name
+    preinitfile=p81a8_hide_thumnbnails
+    # "restore" is hakchi function which copies original file to corresponding path in /var/lib/hakchi/rootfs
+    restore $scnfile
+    # sed is GNU util to modify file, this command replaces "enabled:true" to "enabled:false"
+    # Please note that we need to edit $rootfs$scnfile (writable file), not a just $scnfile (original read-only file)
+    sed -ie 's/"enabled":true/"enabled":false/g' $rootfs$scnfile
+    # Create pre-init script and echo "overmount" command to it
+    echo "overmount $scnfile" > $preinitpath/$preinitfile
+    # We should return 1 to prevent execution of automatic installer 
+    return 1
+
+That's all. But don't forget to create "uninstall" script too:
+
+    # All we need is to delete created files, original file is safe and will be used again after reboot
+    scnfile=/usr/share/clover-ui/resources/prefab/sys_game_thumbnail.scn
+    preinitfile=p81a8_hide_thumnbnails
+    rm -f $preinitfile
+    rm -f $rootfs$scnfile
+
+Lets install our mod...
+
+![mod installer](http://clusterrr.com/dump/hakchi2_mod_installer2.png)
+
+Oops...
+
+![Oops](http://clusterrr.com/dump/nes_mini_thumbnails_oops.jpg)
+
+Thumbnails are removed but cursor is still there. It's park of skin, so we can just make it's transparent, but it will conflict with previous skin mod. It's very important to prevent mods conflicts. 
+
+There is other config file - "**/usr/share/clover-ui/resources/sprites/nes.json**", and it contains coordinates and properties for every GUI element:
+
+![nes.json](http://clusterrr.com/dump/nes_json.png)
+
+So lets change our "**install**" script to replace "*"sourceSize":[12,8]*" on "*"sourceSize":[0,0]*":
+
+    # Lines started with "#" are ignored and can be used as comments
+    # Next line defines "scnfile" variable with path to "sys_game_thumbnail.scn" file
+    scnfile=/usr/share/clover-ui/resources/prefab/sys_game_thumbnail.scn
+    # Same with "nes.json" file
+    nesjson=/usr/share/clover-ui/resources/sprites/nes.json
+    # This line defines "preinitfile" variable with pre-init file name
+    preinitfile=p81a8_hide_thumnbnails
+    # "restore" is hakchi function which copies original file to corresponding path in /var/lib/hakchi/rootfs
+    restore $scnfile
+    restore $nesjson
+    # sed is GNU util to modify file, this command replaces "enabled:true" to "enabled:false"
+    # Please note that we need to edit $rootfs$scnfile (writable file), not a just $scnfile (original read-only file)
+    sed -ie 's/"enabled":true/"enabled":false/g' $rootfs$scnfile
+    sed -ie 's/"sourceSize":[12,8]/"sourceSize":[0,0]/g' $rootfs$nesjson
+    # Create pre-init script and echo "overmount" command to it
+    echo "overmount $scnfile" > $preinitpath/$preinitfile
+    echo "overmount $nesjson" >> $preinitpath/$preinitfile
+    # We should return 1 to prevent execution of automatic installer 
+    return 1
+
+Done! No more thumbnails and cursor at the bottom of the screen! I'll bundle this mod with hakchi v2.17, so you can check and edit it on your own.
