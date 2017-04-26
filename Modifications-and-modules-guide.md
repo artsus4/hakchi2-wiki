@@ -74,7 +74,7 @@ Lets sum everything up. To edit any file/directory on read-only file system you 
 
 I'll try to visualize it:
 
-![Modified directory structure](http://clusterrr.com/dump/nes_mini_filesystem_hakchi2.png)
+![Modified directory structure](http://clusterrr.com/dump/nes_mini_filesystem_hakchi3.png)
 
 It's better to understand on practice, so keep reading.
 
