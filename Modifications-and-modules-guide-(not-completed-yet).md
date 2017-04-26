@@ -197,7 +197,7 @@ But we will not do it. We will use other method. Open "**user_mods**" directory 
     # "restore" is hakchi function which copies original file to corresponding path in /var/lib/hakchi/rootfs
     restore $scnfile
     # sed is GNU util to modify file, this command replaces "enabled:true" to "enabled:false"
-    # Please note that we need to edit $rootfs$scnfile (writable file), not a just $scnfile (original read-only file)
+    # Please note that we need to edit $rootfs$scnfile (writable file), not a just $scnfile (original read-only) file
     sed -i -e 's/"enabled":true/"enabled":false/g' $rootfs$scnfile
     # Create pre-init script and echo "overmount" command to it
     echo "overmount $scnfile" > $preinitpath/$preinitfile
@@ -239,13 +239,19 @@ So lets change our "**install**" script to replace "*"sourceSize":[12,8]*" on "*
     restore $scnfile
     restore $nesjson
     # sed is GNU util to modify file, this command replaces "enabled:true" to "enabled:false"
-    # Please note that we need to edit $rootfs$scnfile (writable file), not a just $scnfile (original read-only file)
+    # Please note that we need to edit $rootfs$scnfile (writable file), not a just $scnfile (original read-only) file
     sed -i -e 's/"enabled":true/"enabled":false/g' $rootfs$scnfile
-    sed -i -e 's/"sourceSize":[12,8]/"sourceSize":[0,0]/g' $rootfs$nesjson
+    sed -i -e 's/\[93,861,12,8\]/\[0,0,0,0\]/g' $rootfs$nesjson
+    sed -i -e 's/\[93,871,12,8\]/\[0,0,0,0\]/g' $rootfs$nesjson
+    sed -i -e 's/\[107,861,12,8\]/\[0,0,0,0\]/g' $rootfs$nesjson
     # Create pre-init script and echo "overmount" command to it
     echo "overmount $scnfile" > $preinitpath/$preinitfile
     echo "overmount $nesjson" >> $preinitpath/$preinitfile
     # We should return 1 to prevent execution of automatic installer 
     return 1
 
-Done! No more thumbnails and cursor at the bottom of the screen! I'll bundle this mod with hakchi v2.17, so you can check and edit it on your own.
+Done! No more thumbnails and cursor at the bottom of the screen!
+
+
+
+I'll bundle this mod with hakchi v2.17, so you can check and edit it on your own.
