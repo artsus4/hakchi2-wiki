@@ -1,4 +1,4 @@
-![For dummies](http://clusterrr.com/dump/hakchi_for_dummies.jpg)
+![For dummies](http://clusterrr.com/dump/hakchi_for_dummies2.jpg)
 
 # Modifications and modules guide
 
