@@ -42,6 +42,7 @@ The first thing you need to understand is mounting. In Linux devices and directo
 So you can't rewrite any original data but there are much free space for additional data. Also there are RAM disks:
 * Mounted on **/var**
 * Mounted on **/run**
+
 Data on this disks are stored in RAM only and erased every time you turn NES Mini off.
 
 Note that the directories are nested inside each other. It means that:
