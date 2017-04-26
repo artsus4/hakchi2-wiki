@@ -241,6 +241,7 @@ So lets change our "**install**" script to replace "*"sourceSize":[12,8]*" on "*
     # sed is GNU util to modify file, this command replaces "enabled:true" to "enabled:false"
     # Please note that we need to edit $rootfs$scnfile (writable file), not a just $scnfile (original read-only) file
     sed -i -e 's/"enabled":true/"enabled":false/g' $rootfs$scnfile
+    # Same with nes.json file, most simple way is to replace coordinates sprite coords with zeros
     sed -i -e 's/\[93,861,12,8\]/\[0,0,0,0\]/g' $rootfs$nesjson
     sed -i -e 's/\[93,871,12,8\]/\[0,0,0,0\]/g' $rootfs$nesjson
     sed -i -e 's/\[107,861,12,8\]/\[0,0,0,0\]/g' $rootfs$nesjson
@@ -255,3 +256,97 @@ Done! No more thumbnails and cursor at the bottom of the screen!
 ![No thumbnails](http://clusterrr.com/dump/nes_mini_thumbnails_ok.jpg)
 
 I'll bundle this mod with hakchi v2.17, so you can check and edit it on your own.
+
+
+### Hardcore scripting - password protection
+
+Are you ready to rock and create something really complicated? My child is playing too much, and I want to limit his access to NES Classic Mini somehow. So I desired to create password protection mod.
+
+One of the coolest things in Linux is a ability to do near everything using only shell scripts. Another one cool thing is "everything is file" concept, so we can access devices as usual files. First of all, we need to enable Telnet server and connect to NES Mini's shell using Telnet client.
+
+![Telnet](http://clusterrr.com/dump/hakchi2_telnet.png)
+
+Lets find controller pseudo-file.
+
+![Controller pseudo-file](http://clusterrr.com/dump/hakchi2_controller_file.png)
+
+The "**/dev/input/by-path/platform-twi.1-event-joystick**" file is just what we need. It outputs data on every event from controller. But this is binary data, so we need "hexdump" util to convert this data into human readable hexademical format.
+
+![Controller pseudo-file](http://clusterrr.com/dump/nes_mini_hexdump_raw.png)
+
+This is what I get after pressing "Up", "Up", "Down", "Down". There is too much data just for four button presses! It outputs 32 bytes on every button press and 32 bytes on every button release. But you don't need to be character from Matrix movie to find some pattern:
+
+![Controller pseudo-file](http://clusterrr.com/dump/nes_mini_hexdump_raw_pattern.png)
+
+So button code is in 11th and 12th bytes of every packet. Lets trim them out... Enter command:
+
+    while [ true ]; do buttons=$(cat /dev/input/by-path/platform-twi.1-event-joystick | hexdump -v -e '1/1 "%02x"' -n 32); echo -n "${buttons:20:4} "; done
+
+And press some buttons...
+
+![Buttons codes](http://clusterrr.com/dump/nes_mini_buttons_code.png)
+
+Wow, there are our button codes! But we also need to ask user for password somehow. I draw three simple images with "1280x720" resolution (it's screen resolution of NES Mini, e.g. 720p):
+
+![Password images](http://clusterrr.com/dump/nes_mini_password_images.png)
+
+But we need to convert them into RAW format since there is no any software to show images on NES Mini. Of course, we can write this software, compile it for ARM processor and install on NES Mini but this is too much just for static images. There are many tools to convert images into RAW format, NES Mini uses "BGRA" byte order. RAW files are huge, so it's better to use gzip to compress them. I stored this files as "**password.raw.gz**", "**password_fail.raw.gz**" and "**password_ok.raw.gz**" into "**/etc/**" directory. So I can draw them on screen using simple command:
+
+    gunzip -c /etc/password.raw.gz > /dev/fb0
+
+This command loads "**/etc/password.raw.gz**" file and writes unzipped data to "**/dev/fb0**" pseudo-file which is frame-buffer representation. 
+
+Finally, lets write password protection script! I'll store it as "**/etc/init.d/S810password**" which is executed after "**S79clovercon**" (controller driver) but before "**S81clover-mcp**" (main GUI):
+
+    #!/bin/sh
+
+    # Some constants
+    # Controller pseudo-file
+    clovercon=/dev/input/by-path/platform-twi.1-event-joystick
+    # Password patters - it's Konami Code :)
+    password="c202 c202 c302 c302 c002 c102 c002 c102 3101 3001 3b01"
+    # Max tries
+    max_tries=30
+
+    # Init scripts are executed with "start" argument when system boots and with "stop" argument during shutdown
+    # So we need to check that it's boot state, not shutdown
+    [ -z "$1" ] || [ "$1" == "start" ] || exit 0
+
+    # Drawing "ENTER PASSWORD" image
+    gunzip -c /etc/password.raw.gz > /dev/fb0
+
+    # Endless loop
+    while [ true ]; do
+      # Wait while pseudo-file doesn't exists (controller not connected or not initialized yet)
+      while [ ! -e $clovercon ]; do usleep 100; done
+      # Reading buttons
+      buttons=$(cat $clovercon | hexdump -v -e '1/1 "%02x"' -n 32)     
+      buttons=${buttons:20:4}
+      # Appending pressed button to "str" variable
+      str="$str $buttons"
+      # If "str" variable is longer that password string, cut it
+      # So we get only last presses
+      [ "${#str}" -gt "${#password}" ] && str="${str:$((${#str}-${#password})):${#password}}"
+
+      # Is password correct?    
+      if [ "$str" == "$password" ]; then
+        # Display "OK" image
+        gunzip -c /etc/password_ok.raw.gz > /dev/fb0
+        # Exit and continue system loading
+        exit 0
+      fi
+    
+      # Password is not correct yet, decrease tries counter
+      max_tries=$(($max_tries-1))
+      # Is it zero?
+      if [ "$max_tries" == "0" ]; then
+        # Display "ACCESS DENIED" image
+        gunzip -c /etc/password_fail.raw.gz > /dev/fb0
+        # Wait for three seconds
+        sleep 3
+        # Shutdown system
+        poweroff
+      fi
+    done
+
+That's it! NES Mini will ask for password now during boot. I'll bundle this mod with hakchi v2.17, so you can check and edit it on your own.
