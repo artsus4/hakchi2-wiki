@@ -349,4 +349,4 @@ Finally, lets write password protection scrip.! I'll store it as "**/etc/init.d/
       fi
     done
 
-That's it! NES Mini will ask for password now during boot. I'll bundle this mod with hakchi v2.17, so you can check and edit it on your own.
+That's it! NES Mini will ask for password during boot now. I'll bundle this mod with hakchi v2.17 too.
