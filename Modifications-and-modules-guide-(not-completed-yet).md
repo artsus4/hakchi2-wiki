@@ -5,9 +5,21 @@ Me and madmonkey spent many hours to create modules system for hakchi/hakchi2 (i
 
 ## Tools
 
-At first time, we did not have feedback from NES Mini over USB connection, so we used UART cable which was soldered inside NES Mini. So it was very difficult to to create some mods without this cable and soldering skills. But I discovered method which allows to access NES Mini's file system and command line using only USB connection. I called it "clovershell" and it's built in hakchi2 since version 2.14. So you don't need any extra hardware to explore NES Mini. Yes, UART cable still recommended but you really need only this software now:
-* Telnet client - software to access NES Mini's command line, bundled with Windows "telnet.exe" is fine but "putty" is recommended.
-* FTP client - software to transfer files, bundled with Windows will work but you can use any FTP client.
+At first time, we did not have feedback from NES Mini over USB connection, so we used UART cable which was soldered inside NES Mini:
+
+![UART pinout](http://clusterrr.com/dump/nes_mini_uart.jpg)
+
+So it was very difficult to to create some mods without this cable and soldering skills. But I discovered method which allows to access NES Mini's file system and command line using only USB connection. I called it "clovershell" and it's built in hakchi2 since version 2.14. So you don't need any extra hardware to explore NES Mini. Yes, UART cable still recommended but everything can be done without soldering now, you need only software.
+
+All required software is built in hakchi2 since version 2.16, check "Tools" menu:
+
+![hakchi2 tools](http://clusterrr.com/dump/hakchi2_servers.png)
+
+But there are some extra tools recommended:
+* [clovershell client](https://github.com/ClusterM/clovershell-client/releases) - my tool which allows to execute shell commands on NES Mini and push/pull files via USB. 
+* Telnet client - software to access NES Mini's command line, bundled with Windows "telnet.exe" is fine but [putty](http://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html) is recommended.
+* FTP client - software to transfer files, bundled with Windows will work but it's better to use something like [FileZilla Client](https://filezilla-project.org/) or [FAR](http://farmanager.com/index.php?l=en). FAR is my favorite one.
+* It's good idea to install also [MSYS](http://www.mingw.org/wiki/MSYS) - a collection of GNU utilities for Windows.
 
 
 ## System overview
@@ -17,24 +29,15 @@ NES Classic Mini is just a tiny computer with ARM processor and Linux. So basic 
 
 ### NAND flash, file system and directory structure
 
-There are main directories of NES Classic Mini after system boot by default:
+There are directories of NES Classic Mini after system boot by default (without hakchi installed):
 
-* **/bin**, **/sbin**, **/usr/bin**, **/usr/bin** - directories for executable files
-* **/dev** - pseudofilesystem with devices
-* **/etc** - configuration files and startup scripts
-* **/etc/init.d** - startup scripts
-* **/lib** - libraries and modules
-* **/usr/share** - images, sounds and other resources
-* **/usr/share/games/nes/kachikachi** - games are here
-* **/var**, **/tmp**, **/run** - temporary files
-* **/var/lib** - all writable user's data (savestates, settings)
+![Original directory structure](http://clusterrr.com/dump/nes_mini_filesystem_original.png)
 
 The first thing you need to understand is mounting. In Linux devices and directories can be mounted on other directories. Internal flash memory devided into several partitions.
 * ~**20MB** in size, factory pre-programmed, **read-only**, contains all system data and games, mounted on **/** (root)
 * ~**384MB** in size, **writable**, contains all user settings and save-states, mounted on **/var/lib**
 
 So you can't rewrite any original data but there are much free space for additional data. Also there are RAM disks:
-* Mounted on **/tmp**
 * Mounted on **/var**
 * Mounted on **/run**
 Data on this disks are stored in RAM only and erased every time you turn NES Mini off.
@@ -66,6 +69,10 @@ Let's sum everything up. To edit any file/directory on read-only file system you
 * Create copy of this file/directory into "**/var/lib/hakchi/rootfs/*your_directory***"
 * Create script file into **/etc/preinit.d**" which overmounts "**/var/lib/hakchi/rootfs/*your_directory***" on "**/*your_directory***"
 * After reboot edit this file/directory without any problems
+
+I'll try to visualize it:
+
+![Modified directory structure](http://clusterrr.com/dump/nes_mini_filesystem_hakchi.png)
 
 It's better to understand on practice, so keep reading.
 
@@ -113,4 +120,4 @@ What happens during module uninstallation:
 
 ## Examples
 
-todo
+
