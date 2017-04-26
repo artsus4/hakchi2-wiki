@@ -168,7 +168,7 @@ But you should distribute your mods not as directories but as single ".hmod" fil
 
 ![Packing hmod](http://clusterrr.com/dump/hakchi2_hmod_packed.png)
 
-So we have "**awesome_skin.hmod**" file now which can be easily shared with other users. All they need to do is just drag-and-drop this file on hakchi2's window. And it's still compatible with original madmonkey's hakchi.
+So we have "**awesome_skin.hmod**" file now which can be easily shared with other users. All they need to do is just drag-and-drop this file on hakchi2's window. And it's still compatible with original madmonkey's hakchi. But actually I'm not sure that it's totally legal to share skin files when they are based on original NES Mini's files.
 
 You can use the same way to edit any other NES Mini's files: music, sounds, text, etc.
 
@@ -198,7 +198,7 @@ But we will not do it. We will use other method. Open "**user_mods**" directory 
     restore $scnfile
     # sed is GNU util to modify file, this command replaces "enabled:true" to "enabled:false"
     # Please note that we need to edit $rootfs$scnfile (writable file), not a just $scnfile (original read-only file)
-    sed -ie 's/"enabled":true/"enabled":false/g' $rootfs$scnfile
+    sed -i -e 's/"enabled":true/"enabled":false/g' $rootfs$scnfile
     # Create pre-init script and echo "overmount" command to it
     echo "overmount $scnfile" > $preinitpath/$preinitfile
     # We should return 1 to prevent execution of automatic installer 
@@ -222,7 +222,7 @@ Oops...
 
 Thumbnails are removed but cursor is still there. It's park of skin, so we can just make it's transparent, but it will conflict with previous skin mod. It's very important to prevent mods conflicts. 
 
-There is other config file - "**/usr/share/clover-ui/resources/sprites/nes.json**", and it contains coordinates and properties for every GUI element:
+There is other config file - "**/usr/share/clover-ui/resources/sprites/nes.json**", and it contains coordinates and properties for every sprite on the screen:
 
 ![nes.json](http://clusterrr.com/dump/nes_json.png)
 
@@ -240,8 +240,8 @@ So lets change our "**install**" script to replace "*"sourceSize":[12,8]*" on "*
     restore $nesjson
     # sed is GNU util to modify file, this command replaces "enabled:true" to "enabled:false"
     # Please note that we need to edit $rootfs$scnfile (writable file), not a just $scnfile (original read-only file)
-    sed -ie 's/"enabled":true/"enabled":false/g' $rootfs$scnfile
-    sed -ie 's/"sourceSize":[12,8]/"sourceSize":[0,0]/g' $rootfs$nesjson
+    sed -i -e 's/"enabled":true/"enabled":false/g' $rootfs$scnfile
+    sed -i -e 's/"sourceSize":[12,8]/"sourceSize":[0,0]/g' $rootfs$nesjson
     # Create pre-init script and echo "overmount" command to it
     echo "overmount $scnfile" > $preinitpath/$preinitfile
     echo "overmount $nesjson" >> $preinitpath/$preinitfile
