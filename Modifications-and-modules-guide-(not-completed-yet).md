@@ -120,4 +120,52 @@ What happens during module uninstallation:
 
 ## Examples
 
+### Custom skin mod
 
+Lets start with something very simple. Do you want to customize your NES Mini and create your own theme for it? So lets locate it inside NES Classic Mini. At first, enable FTP server:
+
+![FTP](http://clusterrr.com/dump/hakchi2_ftp.png)
+
+And login into it using "**127.0.0.1**" as address, **1021** as port "**root**" as login and "**clover**" as password.
+
+It's easy to realize that all images stored into **/usr/share/clover-ui/resources/sprites/nes.png** file:
+
+![Skin](http://clusterrr.com/dump/nes_mini_skin.png)
+
+So we can download this file and edit using your favorite graphic editor without any problems! But... we can't rewrite this file, it's stored on read-only file system inside NES Mini. But we can write files inside "/var/lib" directory, so lets save our modified file as **/var/lib/hakchi/rootfs/usr/share/clover-ui/resources/sprites/nes.png**:
+
+![Skin](http://clusterrr.com/dump/nes_mini_skin2.png)
+
+It saved successfully but it will not replace original **/usr/share/clover-ui/resources/sprites/nes.png** on it's own. We need to create pre-init script to overmount this file on early boot stage. Actually it's very easy to do. All pre-init scripts are stored into "**/etc/preinit.d**" (actually it's "**/var/lib/hakchi/rootfs/etc/preinit.d**" but it's overmounted onto "**/etc/preinit.d**", so who cares) directory. We need to create new file here:
+
+![preinit.d](http://clusterrr.com/dump/nes_mini_preinit.png)
+
+File must be named as **p*xxxx*_*name*** where "xxxx" is a hexadecimal digits and "name" is any text. You can choose any valid name but keep in mind that all pre-init scripts will be executed in alphabetical order. It can be important in some cases.
+
+So lets create "**/etc/preinit.d/p8032_skin**" file with only one line:
+
+    overmount /usr/share/clover-ui/resources/sprites/nes.png
+
+
+![preinit.d](http://clusterrr.com/dump/nes_mini_preinit2.png)
+
+That's all. Just reboot your NES Classic Mini and you will see your custom theme:
+
+![Custom theme photo](http://clusterrr.com/dump/nes_mini_skin_photo.jpg)
+
+But what if you want to share your mod? Open "**user_mods**" directory inside hakchi2's directory and create folder named "**my_skin.hmod**" here. You can choose any name but it must be with ".hmod" on the end.
+Then just copy all files that you created inside NES Mini into this "**my_skin.hmod**" folder. You must keep all directory structure under "**/var/lib/hakchi/rootfs**", so it must contain "**\usr\share\clover-ui\resources\sprites\nes.png**" and "**etc\preinit.d\p8032_skin**" files.
+
+![hmod directory](http://clusterrr.com/dump/hakchi2_skin_hmod.png)
+
+Also it's good idea to create some "readme.txt" file inside "**my_skin.hmod**" folder with some mod description. We can also create "**install**" and "**uninstall**" files but this is not required for such simple mod, hakchi will create install and uninstall scenarios automatically.
+
+You should be able to install/uninstall this mod using hakchi2 now:
+
+![mod installer](http://clusterrr.com/dump/hakchi2_mod_installer.png)
+
+But you should distribute your mods not as directories but as single ".hmod" files which are actually tar.gz archives. So lets create this archive file using tar util from MSYS collection:
+
+![Packing hmod](http://clusterrr.com/dump/hakchi2_hmod_packed.png)
+
+So we have "**awesome_skin.hmod**" file now which can be easily distributed.
