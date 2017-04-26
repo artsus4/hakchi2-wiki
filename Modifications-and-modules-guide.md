@@ -220,7 +220,7 @@ Oops...
 
 ![Oops](http://clusterrr.com/dump/nes_mini_thumbnails_oops.jpg)
 
-Thumbnails are removed but cursor is still there. It's park of skin, so we can just make it's transparent, but it will conflict with previous skin mod. It's very important to prevent mods conflicts. 
+Thumbnails are removed but cursor is still there. It's part of skin, so we can just make it's transparent, but it will conflict with previous skin mod. It's very important to prevent mods conflicts. 
 
 There is other config file - "**/usr/share/clover-ui/resources/sprites/nes.json**", and it contains coordinates and properties for every sprite on the screen:
 
