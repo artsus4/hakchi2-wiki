@@ -1,3 +1,5 @@
+![For dummies](http://clusterrr.com/dump/hakchi_for_dummies.jpg)
+
 # Modifications and modules guide
 
 Me and madmonkey spent many hours to create modules system for hakchi/hakchi2 (it's compatible) to let people create, share and download various modules for NES Classic Mini with custom skins, music, emulators, etc. It's time to write some guide to let you create your own modifications! I'll show you some examples below. So if you can't understand a word, please read until examples section.
