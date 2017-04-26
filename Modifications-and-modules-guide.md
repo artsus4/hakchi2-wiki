@@ -105,7 +105,7 @@ Please read ""**/etc/preinit.d/b0010_functions**" to understand other functions.
 Modules for hakchi/hakchi2 should be distributed as files with "**.hmod**" extension. Actually it's just renamed .tar.gz archive, so you can rename any .hmod file, unpack and inspect how it's made. There are several such files into "**mods\hmods**" directory of hakchi2 (it's a pre-installed mods: controller hack, font hack and clovershell daemon). Also hakchi2 can install unpacked hmods if it's a directory, you can find one such example into "**user_mods\music_hack.hmod**", this mod replaces menu music (with silence by default but you can change wav file with your favorite music track).
 
 So, what .hmod archive *can* contain:
-* First of all, any files which you need to install on NES Mini, it's recommended keep directory structure
+* First of all, any files which you need to install on NES Mini, it's recommended to keep directory structure
 * Optional "**install**" script
 * Optional "**uninstall** script
 * Optional "**readme.txt**" file with some description/info
