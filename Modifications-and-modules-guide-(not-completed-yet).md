@@ -169,3 +169,5 @@ But you should distribute your mods not as directories but as single ".hmod" fil
 ![Packing hmod](http://clusterrr.com/dump/hakchi2_hmod_packed.png)
 
 So we have "**awesome_skin.hmod**" file now which can be easily distributed.
+
+You can use same way to any other NES Mini's file: music, sounds, text, etc.
