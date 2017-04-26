@@ -252,6 +252,6 @@ So lets change our "**install**" script to replace "*"sourceSize":[12,8]*" on "*
 
 Done! No more thumbnails and cursor at the bottom of the screen!
 
-
+![No thumbnails](http://clusterrr.com/dump/nes_mini_thumbnails_ok.jpg)
 
 I'll bundle this mod with hakchi v2.17, so you can check and edit it on your own.
