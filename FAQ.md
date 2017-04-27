@@ -193,7 +193,7 @@ Try to unpack the application and do everything again. Make sure that all files 
 
 **Q: How to create my own "hmod" modules?**
 
-**A:** Use the source Luke! I'll write some documentation soon.
+**A:** I wrote a guide: https://github.com/ClusterM/hakchi2/wiki/Modifications-and-modules-guide
 
 
 **Q: Can I access NES Mini's internal file system and command line? It will help me create some cool mods!**
@@ -217,7 +217,10 @@ Since version 2.16 all this functions are built in hakchi2, just check "Tools" m
 **Q: I found a bug! How can I help you to fix it?**
 
 **A:** Create an issue on GitHub: https://github.com/ClusterM/hakchi2/issues
+
 Of course you can ask about it on some forums. But I can't read them all. Please use the link above if you want to let me know about this bug. Please do not report me about emulation bugs, hakchi2 is not emulator.
+
+Also there is guide how to make good bugreport: you
 
 
 **Q: Have you planned some other cool features?**
@@ -238,4 +241,6 @@ Contact me and I'll give you access.
 
 **A:** My PayPal: clusterrr@clusterrr.com
 
-And thank you! Also try to send some donation to madmonkey. He declines to receive any money, but he made great work and really deserves this.
+And thank you! This really helps me a lot. I have many ideas in my head but I have not so much time because I'm busy with commercial projects. Remember that it's just hobby for me, I'm doing it for fun :)
+
+Also try to send some donation to madmonkey. He declines to receive any money, but he made great work and really deserves this.
