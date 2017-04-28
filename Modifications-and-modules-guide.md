@@ -293,7 +293,7 @@ Wow, there are our button codes! But we also need to ask user for password someh
 
 ![Password images](http://clusterrr.com/dump/nes_mini_password_images.png)
 
-But we need to convert them into RAW format since there is no any software to show images on NES Mini. Of course, we can write this software, compile it for ARM processor and install on NES Mini but this is too much just for static images. There are many tools to convert images into RAW format, NES Mini uses "BGRA" byte order. RAW files are huge, so it's better to use gzip to compress them. I stored this files as "**password.raw.gz**", "**password_fail.raw.gz**" and "**password_ok.raw.gz**" into "**/etc/**" directory. So I can draw them on screen using simple command:
+But we need to convert them into RAW format since there is no any software to show images on NES Mini. Of course, we can write this software, compile it for ARM processor and install on NES Mini but this is too much just for static images. There are many tools to convert images into RAW format, NES Mini uses "RGBA" byte order. RAW files are huge, so it's better to use gzip to compress them. I stored this files as "**password.raw.gz**", "**password_fail.raw.gz**" and "**password_ok.raw.gz**" into "**/etc/**" directory. So I can draw them on screen using simple command:
 
     gunzip -c /etc/password.raw.gz > /dev/fb0
 
