@@ -11,22 +11,22 @@ At first, we didn't have response from NES Mini over USB connection, so we used 
 
 ![UART pinout](http://clusterrr.com/dump/nes_mini_uart.jpg)
 
-So it was very difficult to create mods without this cable and soldering skills. But I've discovered a method which allows accessing NES Mini's file system and command line using only USB connection. I called it "clovershell" and it's built into hakchi2 since version 2.14. So you don't need any extra hardware to explore NES Mini. Yes, a UART cable is still recommended. However, everything can be done without soldering now, you need only software.
+It was very difficult to create mods without this cable and soldering skills. But I've discovered a method which allows accessing NES Mini's file system and command line using only USB connection. I called it "clovershell", and it's built into hakchi2 since version 2.14. So you don't need any extra hardware to explore NES Mini. Yes, a UART cable is still recommended. However, everything can be done without soldering now, you need only software.
 
 All required software is built into hakchi2 since version 2.16, check "Tools" menu:
 
 ![hakchi2 tools](http://clusterrr.com/dump/hakchi2_servers.png)
 
 But there are some extra tools recommended:
-* [clovershell client](https://github.com/ClusterM/clovershell-client/releases) - my tool which allows to execute shell commands on NES Mini and push/pull files via USB. 
-* Telnet client - software to access NES Mini's command line, bundled with Windows "telnet.exe" is fine, but [putty](http://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html) is recommended.
-* FTP client - software to transfer files, bundled with Windows will work, but it's better to use something like [FileZilla Client](https://filezilla-project.org/) or [FAR](http://farmanager.com/index.php?l=en). FAR is my favorite one.
-* It's a good idea to install also [MSYS](http://www.mingw.org/wiki/MSYS) - a collection of GNU utilities for Windows.
+* [clovershell client](https://github.com/ClusterM/clovershell-client/releases) -- my tool which allows to execute shell commands on NES Mini and push/pull files via USB. 
+* Telnet client -- software to access NES Mini's command line: Windows-bundled "telnet.exe" is fine, but [putty](http://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html) is recommended.
+* FTP client -- software to transfer files: the one which is bundled with Windows will work, but it's better to use something like [FileZilla Client](https://filezilla-project.org/) or [FAR](http://farmanager.com/index.php?l=en). FAR is my favorite one.
+* It's a good idea to install also [MSYS](http://www.mingw.org/wiki/MSYS) -- a collection of GNU utilities for Windows.
 
 
 ## System overview
 
-NES Classic Mini is just a tiny computer with an ARM processor and Linux. So basic Linux knowledge will be very handy if you want to create some advanced scripts. It's not so difficult, really.
+NES Classic Mini is just a tiny computer with an ARM processor and Linux. This is why basic Linux knowledge will be very handy if you want to create some advanced scripts. It's not so difficult, really.
 
 
 ### NAND flash, file system and directory structure
@@ -35,7 +35,7 @@ These are default directories of NES Classic Mini (after system boot, without ha
 
 ![Original directory structure](http://clusterrr.com/dump/nes_mini_filesystem_original.png)
 
-The first thing you need to understand is mounting. In Linux devices and directories can be mounted on other directories. Internal flash memory is divided into several partitions.
+The first thing you need to understand is mounting. In Linux, devices and directories can be mounted on other directories. Internal flash memory is divided into several partitions.
 * ~**20MB** in size, factory pre-programmed, **read-only**, contains all system data and games, mounted on **/** (root)
 * ~**384MB** in size, **writable**, contains all user settings and save-states, mounted on **/var/lib**
 
@@ -46,27 +46,27 @@ So you can't rewrite any original data, but there is much free space for additio
 The data on these disks is stored in RAM only and erased every time you turn NES Mini off.
 
 Note that the directories are nested inside each other. It means that:
-* **/** - points to the root of the read-only, factory pre-programmed partition
-* **/etc** - points to "**/etc**" folder on the read-only, factory pre-programmed partition
-* **/usr/share/games** - points to "**/usr/share/games**" folder on the read-only, factory pre-programmed partition
-* **/tmp** - points to a writable RAM disk
-* **/var/lib** - points to a writable partition on the NAND flash memory
+* **/** -- points to the root of the read-only, factory pre-programmed partition
+* **/etc** -- points to "**/etc**" folder on the read-only, factory pre-programmed partition
+* **/usr/share/games** -- points to "**/usr/share/games**" folder on the read-only, factory pre-programmed partition
+* **/tmp** -- points to another writable RAM disk
+* **/var/lib** -- points to the writable partition on the NAND flash memory
 
 It can be difficult to understand for Windows users, but you'll get it.
 
 
 ### File system when hakchi installed
 
-So, we can't edit any internal files or add any games to **/usr/share/games** directory -- it's read-only file system. But actually we don't need to do it. We can create some files/directories in "**/var/lib" and overmount the original files/directories with them. So when hakchi during installation doing the following:
-* Creates directory "**/var/lib/hakchi**" to store all additional data, it remains after system shutdown
-* Creates directory "**/var/lib/hakchi/rootfs**" to store all files/directories which need to replace
-* Creates directory "**/var/lib/hakchi/rootfs/usr/share/games/nes/kachikachi**"
+So, we can't edit any internal files or add any games to **/usr/share/games** directory -- it's read-only file system. But actually we don't need to do it. We can create some files/directories in "**/var/lib" and overmount the original files/directories with them. On installation hakchi does the following:
+* Creates "**/var/lib/hakchi**" directory to store all additional data, it remains after system shutdown
+* Creates "**/var/lib/hakchi/rootfs**" directory to store all the files/directories for replacing the original ones
+* Creates "**/var/lib/hakchi/rootfs/usr/share/games/nes/kachikachi**" directory 
 * Copies all games from "**/usr/share/games/nes/kachikachi**" to "**/var/lib/hakchi/rootfs/usr/share/games/nes/kachikachi**"
 * Mounts "**/var/lib/hakchi/rootfs/usr/share/games/nes/kachikachi**" over "**/usr/share/games/nes/kachikachi**", so it's writable now
 
-It is doing the same with "**/etc**" and "**/bin**", after this hakchi installs additional configs and scripts there. So we can write to "**/etc**" and "**/bin**" while original files are untouched. It's very important. You can delete *all* data you want but your NES Mini will not be bricked since original files are safe.
+It performs the latter overmounting trick with "**/etc**" and "**/bin**" too, after which hakchi installs additional configs and scripts there. So we can write to "**/etc**" and "**/bin**" while the original files are untouched. It's very important. You can delete *any* data you want, but your NES Mini will not be bricked, since the original files are safe.
 
-So, why do we need to install a custom kernel? Actually it has only one important modification: when NES Mini boots up it executes "**/etc/preinit**" (or "**/var/lib/hakchi/rootfs/etc/preinit**", it's *the same* file) script on the very early boot stage. This script, in turn, executes files from "**/etc/preinit.d**" directory. So we can store our overmounting scripts there.
+ Hakchi2 also installs a custom kernel. Why do we need it? Actually it has only one important modification: when NES Mini boots up it executes "**/etc/preinit**" (or "**/var/lib/hakchi/rootfs/etc/preinit**", it's *the same* file) script on the very early boot stage. This script, in turn, executes the files from "**/etc/preinit.d**" directory. So we can store our overmounting scripts there.
 
 Let's sum everything up. To edit any file/directory on the read-only file system you need:
 * Create a copy of this file/directory in "**/var/lib/hakchi/rootfs/*your_directory***"
@@ -77,19 +77,19 @@ I'll try to visualize it:
 
 ![Modified directory structure](http://clusterrr.com/dump/nes_mini_filesystem_hakchi3.png)
 
-It's better to understand on practice, so keep reading.
+It's better to understand in practice, so keep reading.
 
 
-## How to create module correctly
+## How to create modules correctly
 
 ### Built-in functions of hakchi
 
 There are some useful functions defined in "**/etc/preinit.d/b0010_functions**" script. You can use them in your preinit scripts, because "b0010_functions" script is executed earlier:
-* **overmount <*file/directory*>** - overmounts file/directory, e.g. "**overmount /usr/share/games/nes/kachikachi**" overmounts "/var/lib/hakchi/usr/share/games/nes/kachikachi" on "/usr/share/games/nes/kachikachi" making it writable; use it with two arguments to set a custom destination mount point
-* **copy <*path_a*> <*path_b*>** - copies a file/directory using rsync (recommended to use instead of **cp**)
-* **copy_mask <*path_a*> <*path_b*>** - same as **copy**, but can be used with a mask. This function is unsafe, avoid spaces in filenames!
+* **overmount <*file/directory*>** -- overmounts a file/directory, e.g. "**overmount /usr/share/games/nes/kachikachi**" overmounts "/var/lib/hakchi/usr/share/games/nes/kachikachi" on "/usr/share/games/nes/kachikachi" making it writable; use it with two arguments to set a custom destination mount point
+* **copy <*path_a*> <*path_b*>** -- copies a file/directory using rsync (recommended to use instead of **cp**)
+* **copy_mask <*path_a*> <*path_b*>** -- same as **copy**, but can be used with a mask. This function is unsafe, avoid spaces in filenames!
 
-Please read "**/etc/preinit.d/b0010_functions**" to understand other functions. Also there are useful pre-defined variables:
+Please read "**/etc/preinit.d/b0010_functions**" to understand the other functions. Also there are useful pre-defined variables:
 * **modname**=hakchi
 * **modpath**=/var/lib/hakchi (but really it's "*/newroot/var/lib/hakchi*" on pre-init stage)
 * **installpath**=$**mountpoint**/var/lib/$**modname**
@@ -103,19 +103,19 @@ Please read "**/etc/preinit.d/b0010_functions**" to understand other functions. 
 
 ### Structure of .hmod files
 
-Modules for hakchi/hakchi2 should be distributed as files with an "**.hmod**" extension. Actually it's just a renamed .tar.gz archive, so you can rename any .hmod file, unpack and inspect how it's made. There are several such files in "**mods\hmods**" directory of hakchi2 (these are pre-installed mods: controller hack, font hack, and clovershell daemon). Also hakchi2 can install unpacked hmods if it's a directory, you can find one such example in "**user_mods\music_hack.hmod**", this mod replaces menu music (with silence by default, but you can change the wav file with your favorite music track).
+Modules for hakchi/hakchi2 should be distributed as files with an "**.hmod**" extension. Actually it's just a renamed .tar.gz archive, so you can rename any .hmod file, unpack and inspect how it's made. There are several such files in "**mods\hmods**" directory of hakchi2 (these are pre-installed mods: the controller hack, font hack, and clovershell daemon). Also hakchi2 can install unpacked hmods if it's a directory. You can find such an example in "**user_mods\music_hack.hmod**", this mod replaces menu music (with silence by default, but you can change the wav file with your favorite music track).
 
-So, what .hmod archive *can* contain:
-* First of all, any files you need to install on NES Mini, it's recommended to keep the directory structure
+An .hmod archive *can* contain:
+* First of all, any files you need to install on a NES Mini (it's recommended to respect the directory structure)
 * Optional "**install**" script
 * Optional "**uninstall** script
 * Optional "**readme.txt**" file with some description/info
 
 What happens during module installation:
 * If "**install**" file exists, it will be executed, it can contain any hakchi functions and variables showed above
-* If "**install**" has returned a non-zero value or it doesn't exist, all files will be copied to "**/var/lib/hakchi/rootfs**" directory (excluding "install", "uninstall" and readme files)
+* If "**install**" has returned a non-zero value or doesn't exist, all files will be copied to "**/var/lib/hakchi/rootfs**" directory (excluding "install", "uninstall" and readme files)
 * If "**uninstall**" file exists, it will be stored into "**/var/lib/hakchi/hmod**" directory
-* If "**uninstall**" file does not exists, it will be created automatically based on installed files list
+* If "**uninstall**" file does not exist, it will be created automatically based on the installed files list
 
 What happens during module uninstallation:
 * The corresponding "**uninstall**" file will be executed and removed
@@ -123,9 +123,9 @@ What happens during module uninstallation:
 
 ## Examples
 
-### Simple file replacement - custom skin mod
+### Simple file replacement -- custom skin mod
 
-Let's start with something very simple. Do you want to customize your NES Mini and create your own theme for it? So let's locate it inside NES Classic Mini. At first, enable FTP server:
+I suggest starting with something very simple. Do you want to customize your NES Mini and create your own theme for it? Let's find the location of the theme file on NES Classic Mini. At first, enable FTP server:
 
 ![FTP](http://clusterrr.com/dump/hakchi2_ftp.png)
 
@@ -135,17 +135,17 @@ It's easy to realize that all images are stored in **/usr/share/clover-ui/resour
 
 ![Skin](http://clusterrr.com/dump/nes_mini_skin.png)
 
-So we can download this file and edit using your favorite graphic editor without any problems! But... we can't rewrite this file, it's stored on the read-only file system inside NES Mini. But we can write files inside "/var/lib" directory, so lets save our modified file as ***/var/lib/hakchi/rootfs*/usr/share/clover-ui/resources/sprites/nes.png**:
+So we can download this file and edit using your favorite graphic editor without any problems! But... we can't rewrite this file, it's stored on the read-only file system inside NES Mini. However, we can place files inside "/var/lib" directory, so save your modified file as ***/var/lib/hakchi/rootfs*/usr/share/clover-ui/resources/sprites/nes.png**:
 
 ![Skin](http://clusterrr.com/dump/nes_mini_skin2.png)
 
-It has been saved successfully, but it won't replace original **/usr/share/clover-ui/resources/sprites/nes.png** on it's own. We need to create a pre-init script to overmount this file on the early boot stage. Actually it's very easy to do. All pre-init scripts are stored in "**/etc/preinit.d**" (actually it's "**/var/lib/hakchi/rootfs/etc/preinit.d**", but it's overmounted onto "**/etc/preinit.d**", so who cares) directory. We need to create a new file here:
+It has been saved successfully, but it won't replace original **/usr/share/clover-ui/resources/sprites/nes.png** on it's own. We need to create a pre-init script to overmount this file on the early boot stage. Actually it's very easy to do. All pre-init scripts are stored in "**/etc/preinit.d**" (in fact, it's "**/var/lib/hakchi/rootfs/etc/preinit.d**", but it's overmounted onto "**/etc/preinit.d**", so who cares) directory. We need to create a new file here:
 
 ![preinit.d](http://clusterrr.com/dump/nes_mini_preinit.png)
 
-The file must be named as **p*xxxx*_*name***, where "xxxx" is a hexadecimal digits, and "name" is any text. You can choose any valid name, but keep in mind that all pre-init scripts will be executed in alphabetical order. It can be important in some cases.
+The file must be named as **p*xxxx*_*name***, where "xxxx" are hexadecimal digits, and "name" is any text. You can choose any valid name, but keep in mind that all pre-init scripts will be executed in alphabetical order. It can be important in some cases.
 
-So let's create "**/etc/preinit.d/p8032_skin**" file with only one line:
+Thus, you need to create "**/etc/preinit.d/p8032_skin**" file with only one line:
 
     overmount /usr/share/clover-ui/resources/sprites/nes.png
 
@@ -156,41 +156,41 @@ That's all. Just reboot your NES Classic Mini and you will see your custom theme
 
 ![Custom theme photo](http://clusterrr.com/dump/nes_mini_skin_photo.jpg)
 
-But what if you want to share your mod? Open "**user_mods**" directory inside hakchi2's directory and create folder named "**my_skin.hmod**" here. You can choose any name, but it must be with ".hmod" on the end.
-Then just copy all files you created inside NES Mini into this "**my_skin.hmod**" folder. You must keep all directory structure under "**/var/lib/hakchi/rootfs**", so it must contain "**\usr\share\clover-ui\resources\sprites\nes.png**" and "**etc\preinit.d\p8032_skin**" files.
+But what if you want to share your mod? Open "**user_mods**" directory inside hakchi2's directory and create a folder named "**my_skin.hmod**" here. You can choose any name, but it must be with ".hmod" on the end.
+Then just copy all files you created inside NES Mini into this "**my_skin.hmod**" folder. You must keep all directory structure under "**/var/lib/hakchi/rootfs**", so it must contain "**usr\share\clover-ui\resources\sprites\nes.png**" and "**etc\preinit.d\p8032_skin**" files.
 
 ![hmod directory](http://clusterrr.com/dump/hakchi2_skin_hmod.png)
 
-Also it's a good idea to create "readme.txt" file inside "**my_skin.hmod**" folder with some mod description. We can also create "**install**" and "**uninstall**" files, but this is not required for such a simple mod, hakchi will create install and uninstall scenarios automatically.
+Also, it's a good idea to create "readme.txt" file inside "**my_skin.hmod**" folder with some mod description. We can create "**install**" and "**uninstall**" files too, but this is not required for such a simple mod, hakchi will create install and uninstall scenarios automatically.
 
 You should be able to install/uninstall this mod using hakchi2 now:
 
 ![mod installer](http://clusterrr.com/dump/hakchi2_mod_installer.png)
 
-But you should distribute your mods not as directories, but as single ".hmod" files which are actually tar.gz archives. So let's create this archive file using tar util from MSYS collection:
+But you should distribute your mods not as directories, but as single ".hmod" files which are really tar.gz archives. So let's create such an archive file using tar util from MSYS collection:
 
 ![Packing hmod](http://clusterrr.com/dump/hakchi2_hmod_packed.png)
 
-So we have "**awesome_skin.hmod**" file now, which can be easily shared with other users. All they need to do is just drag-and-drop this file on hakchi2's window. And it's still compatible with original madmonkey's hakchi. But actually I'm not sure that it's totally legal to share skin files based on the original NES Mini's files.
+After this we have "**awesome_skin.hmod**" file, which can be easily shared with other users. All they need to do is just drag-and-drop this file on hakchi2's window. And it's still compatible with original madmonkey's hakchi. But actually I'm not sure that it's totally legal to share skin files based on the original NES Mini's files.
 
 In the same way you can edit any other NES Mini's files: music, sounds, text, etc.
 
 
-### Basic scripting - let's remove thumbnails
+### Basic scripting -- thumbnails removal
 
-Many people asked me to remove the thumbnails at the bottom of the screen. This feature was introduced in early versions, but was removed later. So let's create a mod to do it!
+Many people asked me to remove the thumbnails at the bottom of the screen. This feature was introduced in early versions, but was removed later. Get ready to create a mod to do it!
 
 Let's check the files of NES Mini... There is "**/usr/share/clover-ui/resources/prefab/sys_game_thumbnail.scn**" file with some JSON data. And there is "enabled" boolean variable!
 
 ![sys_game_thumbnail.scn](http://clusterrr.com/dump/thumbnails_scn.png)
 
-You already know what to do from previous example:
+You already know what to do from the previous example:
 * Download "**sys_game_thumbnail.scn**" file to your PC
 * Edit it, change "enabled" from "true" to "false"
 * Upload it to NES Mini as "***/var/lib/hakchi/rootfs*/usr/share/clover-ui/resources/prefab/sys_game_thumbnail.scn**"
 * Create a pre-init script to overmount this file
 
-But we will not do it. We will use other method. Open "**user_mods**" directory inside hakchi2's directory, create a folder named "**remove_thumbnails.hmod**" there, and create a file named "**install**" inside it. Now we have an installation script, which will be executed during the mod installation process. Specify this process by placing the following lines into the file:
+But we will not do it. We will use an other method. Open "**user_mods**" directory inside hakchi2's directory, create a folder named "**remove_thumbnails.hmod**" there, and create a file named "**install**" inside it. Now we have an installation script, which will be executed during the mod installation process. We can make the needed changes during this process by placing the following lines right into the file:
 
     # Lines started with "#" are ignored and can be used as comments
     # Next line defines "scnfile" variable with path to "sys_game_thumbnail.scn" file
@@ -215,7 +215,7 @@ That's all. But don't forget to create "uninstall" script too:
     rm -f $preinitfile
     rm -f $rootfs$scnfile
 
-Lets install our mod...
+Let's install our mod...
 
 ![mod installer](http://clusterrr.com/dump/hakchi2_mod_installer2.png)
 
@@ -223,9 +223,9 @@ Oops...
 
 ![Oops](http://clusterrr.com/dump/nes_mini_thumbnails_oops.jpg)
 
-Thumbnails are removed, but cursor is still there. It's a part of the skin, so we can just make it's transparent, but it will conflict with previous skin mod. It's very important to prevent mods conflicts. 
+The thumbnails have been removed, but the cursor is still there. It's a part of the skin, so we can just make it's transparent, but it will conflict with the previous skin mod. It's very important to prevent mods conflicts. 
 
-There is other config file - "**/usr/share/clover-ui/resources/sprites/nes.json**", and it contains coordinates and properties for every sprite on the screen:
+There is other config file -- "**/usr/share/clover-ui/resources/sprites/nes.json**", and it contains coordinates and properties for every sprite on the screen:
 
 ![nes.json](http://clusterrr.com/dump/nes_json.png)
 
@@ -261,19 +261,19 @@ Done! No more thumbnails and cursors at the bottom of the screen!
 I'll bundle this mod with hakchi v2.17, so you can check and edit it on your own.
 
 
-### Hardcore scripting - password protection
+### Hardcore scripting -- password protection
 
-Are you ready to rock and create something really complicated? My child is playing too much, and I want to limit his access to the NES Classic Mini somehow. So I desired to create a password protection mod.
+Are you ready to rock and create something really complicated? My child is playing too much, and I want to limit his access to the NES Classic Mini somehow. Therefore, I desired to create a password protection mod.
 
 One of the coolest things in Linux is an ability to do near everything using only shell scripts. Another cool thing is the "everything is a file" concept, so we can access devices as usual files. First of all, we need to enable Telnet server and connect to NES Mini's shell using Telnet client.
 
 ![Telnet](http://clusterrr.com/dump/hakchi2_telnet.png)
 
-Let's find the controller pseudo-file.
+Here is where the controller pseudo-file may be located:
 
 ![Controller pseudo-file](http://clusterrr.com/dump/hakchi2_controller_file.png)
 
-The "**/dev/input/by-path/platform-twi.1-event-joystick**" file is just what we need. It outputs data on every event from controller. But this is binary data, so we need "hexdump" util to convert this data into human readable hexademical format.
+The "**/dev/input/by-path/platform-twi.1-event-joystick**" file is just what we need. It outputs data on every event from the controller. But this is binary data, so we need "hexdump" util to convert this data into human readable hexademical format.
 
 ![Controller pseudo-file](http://clusterrr.com/dump/nes_mini_hexdump_raw.png)
 
@@ -281,7 +281,7 @@ This is what I get after pressing "Up", "Up", "Down", "Down". There is too much 
 
 ![Controller pseudo-file](http://clusterrr.com/dump/nes_mini_hexdump_raw_pattern.png)
 
-So the button code is in the 11th and 12th bytes of a packet. Lets trim them out... Enter command:
+The button code is in the 11th and 12th bytes of a packet. Let's trim them out... Enter this command:
 
     while [ true ]; do buttons=$(cat /dev/input/by-path/platform-twi.1-event-joystick | hexdump -v -e '1/1 "%02x"' -n 32); echo -n "${buttons:20:4} "; done
 
@@ -289,7 +289,7 @@ And press some buttons...
 
 ![Buttons codes](http://clusterrr.com/dump/nes_mini_buttons_code.png)
 
-Wow, these are our button codes! But we also need to ask a user for a password somehow. I drew three simple images with "1280x720" resolution (it's the screen resolution of NES Mini, e.g. 720p):
+Wow, these are our button codes! But we also need to ask a user for a password somehow. I drew three simple images in "1280x720" resolution (it's the screen resolution of NES Mini, e.g. 720p):
 
 ![Password images](http://clusterrr.com/dump/nes_mini_password_images.png)
 
@@ -299,7 +299,7 @@ But we need to convert them into RAW format, since there is no any software to s
 
 This command loads "**/etc/password.raw.gz**" file and writes unzipped data to "**/dev/fb0**" pseudo-file, which is the frame-buffer representation. 
 
-Finally, we are ready to write the password protection script! I'll store it as "**/etc/init.d/S810password**", which is executed after "**S79clovercon**" (controller driver), but before "**S81clover-mcp**" (main GUI). Please note that line endings **MUST** be UNIX-style (\n instead of \r\n). Also please note that you can't brick your NES Mini, but any error can cause a boot loop or any other fail during startup. Don't panic, you can remove broken script using "uninstall" process. So, let's go!
+Finally, we are ready to write the password protection script! I'll store it as "**/etc/init.d/S810password**", which is executed after "**S79clovercon**" (controller driver), but before "**S81clover-mcp**" (main GUI). Please note that line endings **MUST** be UNIX-style (\n instead of \r\n). Also please note that you can't brick your NES Mini, but any error can cause a boot loop or any other fail during startup. Don't panic, you can remove a broken script using "uninstall" process. So, we're all set!
 
     #!/bin/sh
 
@@ -355,11 +355,11 @@ Finally, we are ready to write the password protection script! I'll store it as 
 That's it! NES Mini asks for a password during boot now. I'll bundle this mod with hakchi v2.17 too.
 
 
-### Bonus - translate Famicom into English language
+### Bonus -- translate Famicom into English language
 
-Just in case you don't know - it's easy to transform your NES Classic Mini into a Famicom Mini and vice-versa. All you need is to upload a firmware file into "**/var/lib/hakchi/firmware**" folder (create it). Of course I can't share the firmware files due to copyright restrictions, but you can easily find them on torrents:
-* **dp-hvc-release-v1.0.5-0-g2f04d11.hsqs** - to transform a NES Mini into a Famicom Mini
-* **dp-nes-release-v1.0.2-0-g99e37e1.hsqs** - to transform a Famicom Mini into a NES Mini
+Just in case you don't know -- it's easy to transform your NES Classic Mini into a Famicom Mini and vice-versa. All you need is to upload a firmware file into "**/var/lib/hakchi/firmware**" folder (create it). Of course, I can't share the firmware files due to copyright restrictions, but you can easily find them on torrents:
+* **dp-hvc-release-v1.0.5-0-g2f04d11.hsqs** -- to transform a NES Mini into a Famicom Mini
+* **dp-nes-release-v1.0.2-0-g99e37e1.hsqs** -- to transform a Famicom Mini into a NES Mini
 
 Just upload one of those files using FTP and reboot your console. Don't forget also to change "Console type" in hakchi2, select foreign "Original 30 games", and sync if you want to get foreign games too, not only foreign GUI.
 
@@ -369,4 +369,4 @@ But what if you want to use a Famicom Mini in NES Mini's interface language? Act
 * Overmount the whole "**/usr/share/clover-ui/resources/strings**" folder, which contains strings for all languages (btw, you can edit them too if you want)
 * Overmount "**/usr/share/clover-ui/resources/fonts/hvc**" folder with "**/usr/share/clover-ui/resources/fonts/nes**" folder extracted from a NES Classic Mini.
 
-Sorry, I can't share those files. But you can extract them on your own. Let's take this as your homework :)
+Sorry, I can't share those files. But you can extract them on your own. You can take it as your homework :)
