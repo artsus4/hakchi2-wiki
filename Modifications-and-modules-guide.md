@@ -57,7 +57,7 @@ It can be difficult to understand for Windows users, but you'll get it.
 
 ### File system when hakchi installed
 
-So, we can't edit any internal files or add any games to **/usr/share/games** directory -- it's read-only file system. But actually we don't need to do it. We can create some files/directories in "**/var/lib" and overmount the original files/directories with them. On installation hakchi does the following:
+So, we can't edit any internal files or add any games to **/usr/share/games** directory -- it's read-only file system. But actually we don't need to do it. We can create some files/directories in "**/var/lib**" and overmount the original files/directories with them. On installation hakchi does the following:
 * Creates "**/var/lib/hakchi**" directory to store all additional data, it remains after system shutdown
 * Creates "**/var/lib/hakchi/rootfs**" directory to store all the files/directories for replacing the original ones
 * Creates "**/var/lib/hakchi/rootfs/usr/share/games/nes/kachikachi**" directory 
@@ -66,7 +66,7 @@ So, we can't edit any internal files or add any games to **/usr/share/games** di
 
 It performs the latter overmounting trick with "**/etc**" and "**/bin**" too, after which hakchi installs additional configs and scripts there. So we can write to "**/etc**" and "**/bin**" while the original files are untouched. It's very important. You can delete *any* data you want, but your NES Mini will not be bricked, since the original files are safe.
 
- Hakchi2 also installs a custom kernel. Why do we need it? Actually it has only one important modification: when NES Mini boots up it executes "**/etc/preinit**" (or "**/var/lib/hakchi/rootfs/etc/preinit**", it's *the same* file) script on the very early boot stage. This script, in turn, executes the files from "**/etc/preinit.d**" directory. So we can store our overmounting scripts there.
+ Hakchi2 also installs a custom kernel. What for? Actually it has only one important modification: when NES Mini boots up, our kernel executes "**/etc/preinit**" (or "**/var/lib/hakchi/rootfs/etc/preinit**", it's *the same* file) script on the very early boot stage. This script, in turn, executes the files from "**/etc/preinit.d**" directory. So we can store our overmounting scripts there.
 
 Let's sum everything up. To edit any file/directory on the read-only file system you need:
 * Create a copy of this file/directory in "**/var/lib/hakchi/rootfs/*your_directory***"
@@ -103,7 +103,7 @@ Please read "**/etc/preinit.d/b0010_functions**" to understand the other functio
 
 ### Structure of .hmod files
 
-Modules for hakchi/hakchi2 should be distributed as files with an "**.hmod**" extension. Actually it's just a renamed .tar.gz archive, so you can rename any .hmod file, unpack and inspect how it's made. There are several such files in "**mods\hmods**" directory of hakchi2 (these are pre-installed mods: the controller hack, font hack, and clovershell daemon). Also hakchi2 can install unpacked hmods if it's a directory. You can find such an example in "**user_mods\music_hack.hmod**", this mod replaces menu music (with silence by default, but you can change the wav file with your favorite music track).
+Modules for hakchi/hakchi2 should be distributed as files with an "**.hmod**" extension. Actually it's just a renamed .tar.gz archive, so you can rename any .hmod file, unpack and inspect how it's made. There are several such files in "**mods\hmods**" directory of hakchi2 (these are pre-installed mods: the controller hack, font hack, and clovershell daemon). Also hakchi2 can install unpacked hmods if it's a directory. You can find such an example in "**user_mods\music_hack.hmod**", this mod replaces menu music (with silence by default, but you can change the wav file to your favorite music track).
 
 An .hmod archive *can* contain:
 * First of all, any files you need to install on a NES Mini (it's recommended to respect the directory structure)
@@ -125,7 +125,7 @@ What happens during module uninstallation:
 
 ### Simple file replacement -- custom skin mod
 
-I suggest starting with something very simple. Do you want to customize your NES Mini and create your own theme for it? Let's find the location of the theme file on NES Classic Mini. At first, enable FTP server:
+I suggest starting with something very simple. Do you want to customize your NES Mini and create your own theme for it? Let's find the location of the theme file on NES Classic Mini. At first, enable the FTP server:
 
 ![FTP](http://clusterrr.com/dump/hakchi2_ftp.png)
 
@@ -139,7 +139,7 @@ So we can download this file and edit using your favorite graphic editor without
 
 ![Skin](http://clusterrr.com/dump/nes_mini_skin2.png)
 
-It has been saved successfully, but it won't replace original **/usr/share/clover-ui/resources/sprites/nes.png** on it's own. We need to create a pre-init script to overmount this file on the early boot stage. Actually it's very easy to do. All pre-init scripts are stored in "**/etc/preinit.d**" (in fact, it's "**/var/lib/hakchi/rootfs/etc/preinit.d**", but it's overmounted onto "**/etc/preinit.d**", so who cares) directory. We need to create a new file here:
+It can be saved successfully, but it won't replace original **/usr/share/clover-ui/resources/sprites/nes.png** on it's own. We need to create a pre-init script to overmount this file on the early boot stage. Actually it's very easy to do. All pre-init scripts are stored in "**/etc/preinit.d**" (in fact, it's "**/var/lib/hakchi/rootfs/etc/preinit.d**", but it's overmounted onto "**/etc/preinit.d**", so who cares) directory. We need to create a new file here:
 
 ![preinit.d](http://clusterrr.com/dump/nes_mini_preinit.png)
 
@@ -156,7 +156,7 @@ That's all. Just reboot your NES Classic Mini and you will see your custom theme
 
 ![Custom theme photo](http://clusterrr.com/dump/nes_mini_skin_photo.jpg)
 
-But what if you want to share your mod? Open "**user_mods**" directory inside hakchi2's directory and create a folder named "**my_skin.hmod**" here. You can choose any name, but it must be with ".hmod" on the end.
+But what if you want to share your mod? Open "**user_mods**" directory inside hakchi2's directory and create a folder named "**my_skin.hmod**" there. You can choose any name, but it must be with ".hmod" on the end.
 Then just copy all files you created inside NES Mini into this "**my_skin.hmod**" folder. You must keep all directory structure under "**/var/lib/hakchi/rootfs**", so it must contain "**usr\share\clover-ui\resources\sprites\nes.png**" and "**etc\preinit.d\p8032_skin**" files.
 
 ![hmod directory](http://clusterrr.com/dump/hakchi2_skin_hmod.png)
@@ -171,7 +171,7 @@ But you should distribute your mods not as directories, but as single ".hmod" fi
 
 ![Packing hmod](http://clusterrr.com/dump/hakchi2_hmod_packed.png)
 
-After this we have "**awesome_skin.hmod**" file, which can be easily shared with other users. All they need to do is just drag-and-drop this file on hakchi2's window. And it's still compatible with original madmonkey's hakchi. But actually I'm not sure that it's totally legal to share skin files based on the original NES Mini's files.
+After this we have "**awesome_skin.hmod**" file, which can be easily shared with other users. All they need to do is just drag-and-drop this file on hakchi2's window. And it's still compatible with original madmonkey's hakchi. But actually I'm not sure that it's totally legal to share skin files based on original NES Mini's files.
 
 In the same way you can edit any other NES Mini's files: music, sounds, text, etc.
 
@@ -265,7 +265,7 @@ I'll bundle this mod with hakchi v2.17, so you can check and edit it on your own
 
 Are you ready to rock and create something really complicated? My child is playing too much, and I want to limit his access to the NES Classic Mini somehow. Therefore, I desired to create a password protection mod.
 
-One of the coolest things in Linux is an ability to do near everything using only shell scripts. Another cool thing is the "everything is a file" concept, so we can access devices as usual files. First of all, we need to enable Telnet server and connect to NES Mini's shell using Telnet client.
+One of the coolest things in Linux is an ability to do near everything using only shell scripts. Another cool thing is the "everything is a file" concept, so we can access devices as usual files. First of all, we need to enable the Telnet server and connect to NES Mini's shell using a Telnet client.
 
 ![Telnet](http://clusterrr.com/dump/hakchi2_telnet.png)
 
