@@ -17,7 +17,7 @@ All required software is built into hakchi2 since version 2.16, check "Tools" me
 
 ![hakchi2 tools](http://clusterrr.com/dump/hakchi2_servers.png)
 
-But there are some extra tools recommended:
+Though, there are some extra tools recommended:
 * [clovershell client](https://github.com/ClusterM/clovershell-client/releases) -- my tool which allows to execute shell commands on NES Mini and push/pull files via USB. 
 * Telnet client -- software to access NES Mini's command line: Windows-bundled "telnet.exe" is fine, but [putty](http://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html) is recommended.
 * FTP client -- software to transfer files: the one which is bundled with Windows will work, but it's better to use something like [FileZilla Client](https://filezilla-project.org/) or [FAR](http://farmanager.com/index.php?l=en). FAR is my favorite one.
@@ -133,7 +133,7 @@ It's easy to realize that all images are stored in **/usr/share/clover-ui/resour
 
 ![Skin](http://clusterrr.com/dump/nes_mini_skin.png)
 
-So we can download this file and edit using your favorite graphic editor without any problems! But... we can't rewrite this file, it's stored on the read-only file system inside NES Mini. However, we can place files inside "/var/lib" directory, so save your modified file as ***/var/lib/hakchi/rootfs*/usr/share/clover-ui/resources/sprites/nes.png**:
+So we can download this file and edit using your favorite graphic editor without any problems! But... we can't rewrite this file, it's stored on the read-only file system inside NES Mini. Although, we can place files inside "/var/lib" directory, so save your modified file as ***/var/lib/hakchi/rootfs*/usr/share/clover-ui/resources/sprites/nes.png**:
 
 ![Skin](http://clusterrr.com/dump/nes_mini_skin2.png)
 
@@ -165,11 +165,11 @@ You should be able to install/uninstall this mod using hakchi2 now:
 
 ![mod installer](http://clusterrr.com/dump/hakchi2_mod_installer.png)
 
-But you should distribute your mods not as directories, but as single ".hmod" files which are really tar.gz archives. So let's create such an archive file using tar util from MSYS collection:
+However, you should distribute your mods not as directories, but as single ".hmod" files which are really tar.gz archives. So let's create such an archive file using tar util from MSYS collection:
 
 ![Packing hmod](http://clusterrr.com/dump/hakchi2_hmod_packed.png)
 
-After this we have "**awesome_skin.hmod**" file, which can be easily shared with other users. All they need to do is just drag-and-drop this file on hakchi2's window. And it's still compatible with madmonkey's original hakchi. But actually I'm not sure that it's totally legal to share skin files based on original NES Mini's files.
+After this we have "**awesome_skin.hmod**" file, which can be easily shared with other users. All they need to do is just drag-and-drop this file on hakchi2's window. And it's still compatible with Madmonkey's original hakchi. Actually, I'm not sure it's totally legal to share skin files based on original NES Mini's files.
 
 In the same way you can edit any other NES Mini's files: music, sounds, text, etc.
 
@@ -271,11 +271,11 @@ Here is where the controller pseudo-file may be located:
 
 ![Controller pseudo-file](http://clusterrr.com/dump/hakchi2_controller_file.png)
 
-The "**/dev/input/by-path/platform-twi.1-event-joystick**" file is just what we need. It outputs data on every event from the controller. But this is binary data, so we need "hexdump" util to convert this data into human readable hexademical format.
+The "**/dev/input/by-path/platform-twi.1-event-joystick**" file is just what we need. It outputs data on every event from the controller. This is binary data, so we need "hexdump" util to convert this data into human readable hexademical format.
 
 ![Controller pseudo-file](http://clusterrr.com/dump/nes_mini_hexdump_raw.png)
 
-This is what I get after pressing "Up", "Up", "Down", "Down". There is too much data just for four button presses! It outputs 32 bytes on every button press and 32 bytes on every button release. But you don't need to be a character from the Matrix movie to find the pattern:
+This is what I get after pressing "Up", "Up", "Down", "Down". There is too much data just for four button presses! It outputs 32 bytes on every button press and 32 bytes on every button release. Despite this, you don't need to be a character from the Matrix movie to find the pattern:
 
 ![Controller pseudo-file](http://clusterrr.com/dump/nes_mini_hexdump_raw_pattern.png)
 
@@ -291,7 +291,7 @@ Wow, these are our button codes! But we also need to ask a user for a password s
 
 ![Password images](http://clusterrr.com/dump/nes_mini_password_images.png)
 
-But we need to convert them into RAW format, since there is no any software to show images on NES Mini. Of course, we could write this software, compile it for ARM processor, and install it on NES Mini, but this would be too much just for static images. There are many tools to convert images into RAW format, NES Mini uses "RGBA" byte order. RAW files are huge, so it's better to use gzip to compress them. I stored this files as "**password.raw.gz**", "**password_fail.raw.gz**" and "**password_ok.raw.gz**" into "**/etc/**" directory. It's possible to show them on the screen using a simple command:
+We need to convert them into RAW format, since there is no any software to show images on NES Mini. Of course, we could write this software, compile it for ARM processor, and install it on NES Mini, but this would be too much just for static images. There are many tools to convert images into RAW format, NES Mini uses "RGBA" byte order. RAW files are huge, so it's better to use gzip to compress them. I stored this files as "**password.raw.gz**", "**password_fail.raw.gz**" and "**password_ok.raw.gz**" into "**/etc/**" directory. It's possible to show them on the screen using a simple command:
 
     gunzip -c /etc/password.raw.gz > /dev/fb0
 
@@ -361,7 +361,7 @@ Just in case you don't know -- it's easy to transform your NES Classic Mini into
 
 Just upload one of those files using FTP and reboot your console. Don't forget also to change "Console type" in hakchi2, select foreign "Original 30 games", and sync if you want to get foreign games too, not only foreign GUI.
 
-But what if you want to use a Famicom Mini in NES Mini's interface language? Actually it's very simple to do. You need to:
+But what if you want to use a Famicom Mini in NES Mini's interface language? Actually, it's very simple to do. You need to:
 
 * Overmount "**/usr/share/clover-ui/resources/scripts/system.lua**" file using the same file from a NES Mini, it will enable the language selection dialog and icon
 * Overmount the whole "**/usr/share/clover-ui/resources/strings**" folder, which contains strings for all languages (BTW, you can edit them too if you want)
