@@ -55,7 +55,7 @@ It can be difficult to understand for Windows users, but you'll get it.
 
 ### File system when hakchi installed
 
-So, we can't edit any internal files or add any games to **/usr/share/games** directory -- it's read-only file system. But actually we don't need to do it. We can create some files/directories in "**/var/lib**" and overmount the original files/directories with them. On installation hakchi does the following:
+So, we can't edit any internal files or add any games to **/usr/share/games** directory -- it's read-only file system. But, actually, we don't need to do it. We can create some files/directories in "**/var/lib**" and overmount the original files/directories with them. On installation hakchi does the following:
 * Creates "**/var/lib/hakchi**" directory to store all additional data, it remains after system shutdown
 * Creates "**/var/lib/hakchi/rootfs**" directory to store all the files/directories for replacing the original ones
 * Creates "**/var/lib/hakchi/rootfs/usr/share/games/nes/kachikachi**" directory 
@@ -64,7 +64,7 @@ So, we can't edit any internal files or add any games to **/usr/share/games** di
 
 It performs the latter overmounting trick with "**/etc**" and "**/bin**" too, after which hakchi installs additional configs and scripts there. So we can write to "**/etc**" and "**/bin**" while the original files are untouched. It's very important. You can delete *any* data you want, but your NES Mini will not be bricked, since the original files are safe.
 
- Hakchi2 also installs a custom kernel. What for? Actually it has only one important modification: when NES Mini boots up, our kernel executes "**/etc/preinit**" (or "**/var/lib/hakchi/rootfs/etc/preinit**", it's *the same* file) script on the very early boot stage. This script, in turn, executes the files from "**/etc/preinit.d**" directory. So we can store our overmounting scripts there.
+ Hakchi2 also installs a custom kernel. What for? Actually, it has only one important modification: when NES Mini boots up, our kernel executes "**/etc/preinit**" (or "**/var/lib/hakchi/rootfs/etc/preinit**", it's *the same* file) script on the very early boot stage. This script, in turn, executes the files from "**/etc/preinit.d**" directory. So we can store our overmounting scripts there.
 
 Let's sum everything up. To edit any file/directory on the read-only file system you need:
 * Create a copy of this file/directory in "**/var/lib/hakchi/rootfs/*your_directory***"
@@ -137,7 +137,7 @@ So we can download this file and edit using your favorite graphic editor without
 
 ![Skin](http://clusterrr.com/dump/nes_mini_skin2.png)
 
-It can be saved successfully, but it won't replace the original **/usr/share/clover-ui/resources/sprites/nes.png** on it's own. We need to create a pre-init script to overmount this file on the early boot stage. Actually it's very easy to do. All pre-init scripts are stored in "**/etc/preinit.d**" (in fact, it's "**/var/lib/hakchi/rootfs/etc/preinit.d**", but it's overmounted onto "**/etc/preinit.d**", so who cares) directory. We need to create a new file here:
+It can be saved successfully, but it won't replace the original **/usr/share/clover-ui/resources/sprites/nes.png** on it's own. We need to create a pre-init script to overmount this file on the early boot stage. Actually, it's very easy to do. All pre-init scripts are stored in "**/etc/preinit.d**" (in fact, it's "**/var/lib/hakchi/rootfs/etc/preinit.d**", but it's overmounted onto "**/etc/preinit.d**", so who cares) directory. We need to create a new file here:
 
 ![preinit.d](http://clusterrr.com/dump/nes_mini_preinit.png)
 
@@ -169,7 +169,7 @@ However, you should distribute your mods not as directories, but as single ".hmo
 
 ![Packing hmod](http://clusterrr.com/dump/hakchi2_hmod_packed.png)
 
-After this we have "**awesome_skin.hmod**" file, which can be easily shared with other users. All they need to do is just drag-and-drop this file on hakchi2's window. And it's still compatible with madmonkey's original hakchi. Actually, I'm not sure it's totally legal to share skin files based on original NES Mini's files.
+After this we have "**awesome_skin.hmod**" file, which can be easily shared with other users. All they need to do is just drag-and-drop this file on hakchi2's window. And it's still compatible with madmonkey's original hakchi. Honestly, I'm not sure it's totally legal to share skin files based on original NES Mini's files.
 
 In the same way you can edit any other NES Mini's files: music, sounds, text, etc.
 
