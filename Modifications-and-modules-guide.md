@@ -101,7 +101,7 @@ Please read "**/etc/preinit.d/b0010_functions**" to understand the other functio
 
 ### Structure of .hmod files
 
-Modules for hakchi/hakchi2 should be distributed as files with an "**.hmod**" extension. Actually it's just a renamed .tar.gz archive, so you can rename any .hmod file, unpack and inspect how it's made. There are several such files in "**mods\hmods**" directory of hakchi2 (these are pre-installed mods: the controller hack, font hack, and clovershell daemon). Also hakchi2 can install unpacked hmods if it's a directory. You can find such an example in "**user_mods\music_hack.hmod**", this mod replaces menu music (with silence by default, but you can change the wav file to your favorite music track).
+Modules for hakchi/hakchi2 should be distributed as files with an "**.hmod**" extension. In fact, it's just a renamed .tar.gz archive, so you can rename any .hmod file, unpack and inspect how it's made. There are several such files in "**mods\hmods**" directory of hakchi2 (these are pre-installed mods: the controller hack, font hack, and clovershell daemon). Also hakchi2 can install unpacked hmods if it's a directory. You can find such an example in "**user_mods\music_hack.hmod**", this mod replaces menu music (with silence by default, but you can change the wav file to your favorite music track).
 
 An .hmod archive *can* contain:
 * First of all, any files you need to install on a NES Mini (it's recommended to respect the directory structure)
@@ -169,7 +169,7 @@ However, you should distribute your mods not as directories, but as single ".hmo
 
 ![Packing hmod](http://clusterrr.com/dump/hakchi2_hmod_packed.png)
 
-After this we have "**awesome_skin.hmod**" file, which can be easily shared with other users. All they need to do is just drag-and-drop this file on hakchi2's window. And it's still compatible with Madmonkey's original hakchi. Actually, I'm not sure it's totally legal to share skin files based on original NES Mini's files.
+After this we have "**awesome_skin.hmod**" file, which can be easily shared with other users. All they need to do is just drag-and-drop this file on hakchi2's window. And it's still compatible with madmonkey's original hakchi. Actually, I'm not sure it's totally legal to share skin files based on original NES Mini's files.
 
 In the same way you can edit any other NES Mini's files: music, sounds, text, etc.
 
