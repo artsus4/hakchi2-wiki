@@ -39,17 +39,15 @@ The first thing you need to understand is mounting. In Linux, devices and direct
 * ~**20MB** in size, factory pre-programmed, **read-only**, contains all system data and games, mounted on **/** (root)
 * ~**384MB** in size, **writable**, contains all user settings and save-states, mounted on **/var/lib**
 
-So you can't rewrite any original data, but there is much free space for additional data. Also, there are RAM disks:
-* Mounted on **/var**
-* Mounted on **/run**
+So you can't rewrite any original data, but there is much free space for additional data.
 
-The data on these disks is stored in RAM only and erased every time you turn NES Mini off.
+Also, there are RAM disks mounted on **/var**,  **/run** and **/tmp**. The data on these disks is stored in RAM only and erased every time you turn NES Mini off.
 
 Note that the directories are nested inside each other. It means that:
 * **/** -- points to the root of the read-only, factory pre-programmed partition
 * **/etc** -- points to "**/etc**" folder on the read-only, factory pre-programmed partition
 * **/usr/share/games** -- points to "**/usr/share/games**" folder on the read-only, factory pre-programmed partition
-* **/tmp** -- points to another writable RAM disk
+* **/tmp** -- points to one of the aforementioned writable RAM disk
 * **/var/lib** -- points to the writable partition on the NAND flash memory
 
 It can be difficult to understand for Windows users, but you'll get it.
@@ -77,7 +75,7 @@ I'll try to visualize it:
 
 ![Modified directory structure](http://clusterrr.com/dump/nes_mini_filesystem_hakchi3.png)
 
-It's better to understand in practice, so keep reading.
+It's easier to understand in practice, so keep reading.
 
 
 ## How to create modules correctly
@@ -139,7 +137,7 @@ So we can download this file and edit using your favorite graphic editor without
 
 ![Skin](http://clusterrr.com/dump/nes_mini_skin2.png)
 
-It can be saved successfully, but it won't replace original **/usr/share/clover-ui/resources/sprites/nes.png** on it's own. We need to create a pre-init script to overmount this file on the early boot stage. Actually it's very easy to do. All pre-init scripts are stored in "**/etc/preinit.d**" (in fact, it's "**/var/lib/hakchi/rootfs/etc/preinit.d**", but it's overmounted onto "**/etc/preinit.d**", so who cares) directory. We need to create a new file here:
+It can be saved successfully, but it won't replace the original **/usr/share/clover-ui/resources/sprites/nes.png** on it's own. We need to create a pre-init script to overmount this file on the early boot stage. Actually it's very easy to do. All pre-init scripts are stored in "**/etc/preinit.d**" (in fact, it's "**/var/lib/hakchi/rootfs/etc/preinit.d**", but it's overmounted onto "**/etc/preinit.d**", so who cares) directory. We need to create a new file here:
 
 ![preinit.d](http://clusterrr.com/dump/nes_mini_preinit.png)
 
@@ -171,7 +169,7 @@ But you should distribute your mods not as directories, but as single ".hmod" fi
 
 ![Packing hmod](http://clusterrr.com/dump/hakchi2_hmod_packed.png)
 
-After this we have "**awesome_skin.hmod**" file, which can be easily shared with other users. All they need to do is just drag-and-drop this file on hakchi2's window. And it's still compatible with original madmonkey's hakchi. But actually I'm not sure that it's totally legal to share skin files based on original NES Mini's files.
+After this we have "**awesome_skin.hmod**" file, which can be easily shared with other users. All they need to do is just drag-and-drop this file on hakchi2's window. And it's still compatible with madmonkey's original hakchi. But actually I'm not sure that it's totally legal to share skin files based on original NES Mini's files.
 
 In the same way you can edit any other NES Mini's files: music, sounds, text, etc.
 
@@ -187,7 +185,7 @@ Let's check the files of NES Mini... There is "**/usr/share/clover-ui/resources/
 You already know what to do from the previous example:
 * Download "**sys_game_thumbnail.scn**" file to your PC
 * Edit it, change "enabled" from "true" to "false"
-* Upload it to NES Mini as "***/var/lib/hakchi/rootfs*/usr/share/clover-ui/resources/prefab/sys_game_thumbnail.scn**"
+* Upload it to your NES Mini as "***/var/lib/hakchi/rootfs*/usr/share/clover-ui/resources/prefab/sys_game_thumbnail.scn**"
 * Create a pre-init script to overmount this file
 
 But we will not do it. We will use an other method. Open "**user_mods**" directory inside hakchi2's directory, create a folder named "**remove_thumbnails.hmod**" there, and create a file named "**install**" inside it. Now we have an installation script, which will be executed during the mod installation process. We can make the needed changes during this process by placing the following lines right into the file:
@@ -223,9 +221,9 @@ Oops...
 
 ![Oops](http://clusterrr.com/dump/nes_mini_thumbnails_oops.jpg)
 
-The thumbnails have been removed, but the cursor is still there. It's a part of the skin, so we can just make it's transparent, but it will conflict with the previous skin mod. It's very important to prevent mods conflicts. 
+The thumbnails have been removed, but the cursor is still there. It's a part of the skin, so we can just make it's transparent, but it will conflict with the previous skin mod. It's very important to prevent mod conflicts. 
 
-There is other config file -- "**/usr/share/clover-ui/resources/sprites/nes.json**", and it contains coordinates and properties for every sprite on the screen:
+There is another config file -- "**/usr/share/clover-ui/resources/sprites/nes.json**", and it contains coordinates and properties for every sprite on the screen:
 
 ![nes.json](http://clusterrr.com/dump/nes_json.png)
 
@@ -289,7 +287,7 @@ And press some buttons...
 
 ![Buttons codes](http://clusterrr.com/dump/nes_mini_buttons_code.png)
 
-Wow, these are our button codes! But we also need to ask a user for a password somehow. I drew three simple images in "1280x720" resolution (it's the screen resolution of NES Mini, e.g. 720p):
+Wow, these are our button codes! But we also need to ask a user for a password somehow. I drew three simple images in "1280x720" resolution (that is 720p, it's the screen resolution of NES Mini):
 
 ![Password images](http://clusterrr.com/dump/nes_mini_password_images.png)
 
@@ -366,7 +364,7 @@ Just upload one of those files using FTP and reboot your console. Don't forget a
 But what if you want to use a Famicom Mini in NES Mini's interface language? Actually it's very simple to do. You need to:
 
 * Overmount "**/usr/share/clover-ui/resources/scripts/system.lua**" file using the same file from a NES Mini, it will enable the language selection dialog and icon
-* Overmount the whole "**/usr/share/clover-ui/resources/strings**" folder, which contains strings for all languages (btw, you can edit them too if you want)
+* Overmount the whole "**/usr/share/clover-ui/resources/strings**" folder, which contains strings for all languages (BTW, you can edit them too if you want)
 * Overmount "**/usr/share/clover-ui/resources/fonts/hvc**" folder with "**/usr/share/clover-ui/resources/fonts/nes**" folder extracted from a NES Classic Mini.
 
 Sorry, I can't share those files. But you can extract them on your own. You can take it as your homework :)
